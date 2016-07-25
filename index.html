@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 	<head>
-		<!--Shity title to find-->
-		<title>DocLink</title>
+		<!--Title to find-->
+		<title>With We Care</title>
 
 		<!--Material stylesheets, fonts & icons-->
-		<link type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+		<link type="text/css" href="css/fonts.css" rel="stylesheet">
 		<link type="text/css" href="css/materialize.min.css" rel="stylesheet" >
 		<link type="text/css" href="css/material-icons.css" rel="stylesheet">
 
@@ -22,12 +22,16 @@
 
 	</head>
 
-	<body ng-app="APPNAME"  ng-controller="CTRLNAME">
+	<body ng-app="WWC"  ng-controller="MainCtrl">
 		<header>
 			<!--Navbar & header contents goes here-->
 		</header>
+		
 		<main>
 			<!--Main view goes here-->
+			<div class="ui-view-container">
+				<ui-view></ui-view>
+			</div>
 		</main>
 
 		<!--Angular & Material main scripts-->
@@ -39,14 +43,20 @@
 		<script type="text/javascript" src="js/angular-animate-153.js"></script>
 		<script type="text/javascript" src="js/angular-ui-router.min.js"></script>
 
-		<!--Custom scripts-->
-		<script type="text/javascript" src="js/script.js"></script>
+		<!--Services-->
+		<script type="text/javascript" src="js/services/coreService.js"></script>
+
+		<!--Controllers-->
+		<script type="text/javascript" src="js/controllers/coreController.js"></script>
+		<script type="text/javascript" src="js/controllers/landingController.js"></script>
+
+		<!--Core Angular Script-->
+		<script type="text/javascript" src="js/core.js"></script>
 
 		<!--Material Initialisation scripts-->
 		<script>
 
 		</script>
-
 	</body>
 
 </html>
