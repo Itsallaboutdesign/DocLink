@@ -3,12 +3,12 @@
     <div class="container">
         <div class="row">
             <div class="col s6">
-                <h3 class="white-text weight-7 valign">"We stay with you, <br>always."</h3>
+                <h2 class="white-text weight-7 valign">"We stay with you, <br>always."</h2>
             </div>
         </div>
     </div>
     <div class="parallax">
-        <img src="img/landing.jpg" alt="Welcome to With We Care">
+        <img src="img/healthcom.jpg" alt="Welcome to With We Care">
     </div>
 </div>
 <div class="row commercial">
@@ -44,16 +44,17 @@
         </div>
     </div>
 </div>
-<div class="row parallax-container teal-screen height-7 valign-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col s6">
-                <h3 class="white-text weight-7 valign">"We care about you, <br>really."</h3>
+<div class="row parallax-container height-7 valign-wrapper">
+    <div class="col s7 teal-screen">
+        <div class="container height-7">
+            <div class="row" style="margin-top:80%">
+                <h1 class="white-text weight-7 valign">"We care about you, <br>really."</h1>
             </div>
         </div>
     </div>
+    <div class="col s5"></div>
     <div class="parallax">
-        <img src="img/cardio.jpg" alt="Welcome to With We Care" style="margin-top:25%">
+        <img src="img/hearth.jpg" alt="Welcome to With We Care" style="margin-top:25%">
     </div>
 </div>
 <div class="row commercial">
@@ -272,7 +273,7 @@
     <div class="col s6">
     </div>
     <div class="parallax">
-        <img src="img/team.jpg" alt="#WithWeCare">
+        <img src="img/referrals.jpg" alt="#WithWeCare">
     </div>
 </div>
 
@@ -283,26 +284,6 @@
     </div>
 </div>
 
-<ng-include src="templates/snippets/footer.html"></ng-include>
+<ng-include src="'templates/snippets/footer.html'"></ng-include>
 
-<script>
-    $(document).ready(function(){
-        $('.parallax').parallax();
-        $('select').material_select();
-        $('.tooltipped').tooltip({delay:20});
-        heightToWidth();
-    });
-    $(window).ready(heightToWidth());
-    $(window).resize(function(){
-        heightToWidth();
-    });
-
-    function heightToWidth(){
-        var rw = $('.rounded').width();
-        $('.rounded').attr('style','height:'+rw+'px');
-        var sw = $('.squared').width();
-        $('.squared').attr('style','height:'+sw+'px');
-        var biw = $('.blockImage').width();
-        $('.blockImage').attr('style','height:'+biw+'px');
-    }
-</script>
+<script type="text/javascript" src="js/init.js"></script>

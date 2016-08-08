@@ -174,7 +174,10 @@ HELPERS
 	overflow: auto;
 }
 .teal-screen{
-	background-color:rgba(128,203,196,0.3);
+	background-color:rgba(128,203,196,0.5);
+}
+.red-screen{
+	background-color:rgba(239,207,154,0.5);
 }
 .modal-footer{
 	text-align: center;
@@ -220,6 +223,10 @@ HELPERS
 	-o-transition:all .5s ease-in-out;
 	transition:all .5s ease-in-out;
 }
+.outline{
+	border: solid 2px white;
+	border-radius:50%;
+}
 .description{
 	text-align:center;
 }
@@ -232,6 +239,16 @@ HELPERS
 .process{
 	margin-top:10%;
 	margin-bottom:10%;
+}
+.left-bordered{
+	border-left:solid 1px white;
+}
+.textual{
+	font-size: 22px;
+	font-weight:400;
+	text-align: center;
+	margin-top:50px;
+	margin-bottom:50px;
 }
 /*
 
@@ -307,6 +324,28 @@ footer{
 	bottom:0px;
 	width:100%;
 
+}
+.footer{
+	margin-bottom:0px;
+	padding-left:50px;
+	font-size:20px;
+	font-weight:400;
+}
+.footerMenu{
+	margin-bottom:50px;
+}
+.footerMenu > li{
+	display:inline-block;
+	margin-right:45px;
+	font-size:28px;
+}
+.footerMenu > li > a{
+	color:white
+}
+.social{
+	margin-top:100px;
+	height:200px;
+	padding-left:30%;
 }
 
 /*CONTEXT MENU*/
@@ -472,6 +511,13 @@ ANIMATIONS
 }
 .fadeout{
 	opacity:0.3;
+	-webkit-transition:all 0.5s ease-in-out;
+	-moz-transition:all .5s ease-in-out;
+	-o-transition:all .5s ease-in-out;
+	transition:all .5s ease-in-out;
+}
+
+.smooth{
 	-webkit-transition:all 0.5s ease-in-out;
 	-moz-transition:all .5s ease-in-out;
 	-o-transition:all .5s ease-in-out;

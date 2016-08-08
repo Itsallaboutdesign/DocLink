@@ -1,0 +1,122 @@
+<!-- What We Do Landing Template-->
+<div class="row parallax-container height-4 teal-screen valign-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s6">
+                <h2 class="white-text weight-7 valign">"Our mission:<br> create a global connection<br>for medical help"</h2>
+            </div>
+        </div>
+    </div>
+    <div class="parallax">
+        <img src="img/translation.jpg" alt="Nice to meet you, our name is With We care">
+    </div>
+</div>
+
+<div class="row">
+    <div class="container">
+        <div class="row">
+            <div class="col s10 offset-s1 l8 offset-l2 teal-text text-lighten-2 center textual">
+                <p>Our team works for ensuring safe and fun destinations for your medical travel at the best price possible!</p>
+                <p>Every day WithWe Care searches and contacts the best experts, updating continuously clinics database.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row valign-wrapper" id="whoareyou">
+    <div ng-class="{'teal-screen  parallax-container height-7 smooth':true,'col s6':!isPatient&&!isDoctor,'col s11':isPatient,'col s1':isDoctor}">
+        <div class="container height-7">
+            <div class="row" style="margin-top:250px" ng-show="!isPatient&&!isDoctor">
+                <div class="col s4 offset-s8">
+                    <h1 class="white-text weight-7 valign" style="text-align:right">You are a patient</h1>
+                    <a href="#whoareyou" class="clickable white-text" ng-click="isPatient = true"><i class="large material-icons">keyboard_arrow_left</i></a>
+                </div>
+            </div>
+            <div class="row white-text textual" style="margin-top:100px" ng-show="isPatient">
+                <div class="col s10 offset-s1 center">
+                    <div class="row">
+                        <p>￼An Intuitive app to help customers access information about various medical tourism destinations, services & prices and compare our partner clinics on the go.</p>
+                        <p class="weight-7">BE CONFIDENT OF YOUR CHOICE!</p>
+                        <p>We help you in making the best decision by promptly answering any
+    queries through the calling/chat features on the App & website.</p>
+                        <p>
+    E-accompaniment, handholding our clients through the entire process with Pre, during and Post Travel Care and connectedness through continuous chat and calling Support.</p>
+                    </div>
+                    <div class="row center">
+                        <div class="col s4">
+                            <h1>1</h1>
+                        </div>
+                        <div class="col s4">
+                            <h1>2</h1>
+                        </div>
+                        <div class="col s4">
+                            <h1>3</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row table-of-contents" style="margin-top:500px;padding-right:100px" ng-show="isDoctor">
+                <a href="#whoareyou" ng-click="isDoctor = false;" class="white-text clickable"><i class="large material-icons">keyboard_arrow_left</i></a>
+            </div>
+        </div>
+        <div class="parallax">
+            <img src="img/patient.jpg" alt="Welcome to With We Care" style="margin-top:25%">
+        </div>
+    </div>
+    <div ng-class="{'red-screen smooth parallax-container height-7':true,'col s6':!isPatient&&!isDoctor,'col s1':isPatient,'col s11':isDoctor}">
+        <div class="container height-7">
+            <div class="row" style="margin-top:250px" ng-show="!isPatient&&!isDoctor">
+                <div class="col s4 left">
+                    <h1 class="white-text weight-7 valign" style="text-align:left">You are a doctor</h1>
+                    <a href="#whoareyou" class="clickable white-text" ng-click="isDoctor = true"><i class="large material-icons">keyboard_arrow_right</i></a>
+                </div>
+                <div class="col s8"></div>
+            </div>
+            <div class="row" style="margin-top:500px" ng-show="isPatient">
+                <a href="#whoareyou" ng-click="isPatient = false;" class="white-text clickable"><i class=" large material-icons">keyboard_arrow_right</i></a>
+            </div>
+        </div>
+        <div class="parallax">
+            <img src="img/doctor.jpg" alt="Welcome to With We Care" style="margin-top:25%">
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="isPatient">
+    <div class="col s11">
+        <div class="container">
+            <div class="col s10 offset-s1 textual teal-text text-lighten-3">
+                <div class="row">
+                    <div class="col s4">
+                        <h5 class="weight-7">PRE SURGERY</h5>
+                        <p>Support by home-visit to best understand the client’s needs</p>
+                    </div>
+                    <div class="col s4">
+                        <h5 class="weight-7">E-CONSULTATION</h5>
+                        <p>Organize your travel with our help, choosing best clinics and prices</p>
+                    </div>
+                    <div class="col s4">
+                        <h5 class="weight-7">POST SURGERY</h5>
+                        <p>We ensure our clients have checkups with the best local doctors</p>
+                    </div>
+                </div>
+                <hr class="divider">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s10 offset-s1 textual teal-text text-lighten-3 center">
+        <p>Have you ever tought about <strong>medical tourism?</strong></p>
+<p>You have all the <strong>informations</strong> you need to make the right choice ?</p>
+<p> Can doctors understand your <strong>needs</strong> ?</p>
+<p>Do you think our experts stop carring for you after the <strong>surgery</strong> ?</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col s6 offset-s3 center">
+        <h1 class="red-text text-lighten-3 weight-7">“With We Care is the answer you were searching for”</h1>
+    </div>
+</div>
+
+<ng-include src="'templates/snippets/footer.html'"></ng-include>
+<script type="text/javacript" src="js/init.js"></script>

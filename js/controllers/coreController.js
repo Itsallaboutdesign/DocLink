@@ -3,6 +3,7 @@
 var ctrl = angular.module('Ctrls',['Services']);
 
 ctrl.controller('MainCtrl',['$state','$scope','$rootScope',function($state,$scope,$rootScope){
+    console.log('Main Ctrl');
 
     $rootScope.$on('$stateChangeStart',function(event,toState,fromState,toParams,fromParams){
         if(toState.params.name === 'landing'){
