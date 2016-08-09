@@ -6,6 +6,8 @@ ctrl.controller('MainCtrl',['$state','$scope','$rootScope',function($state,$scop
     console.log('Main Ctrl');
 
     $rootScope.$on('$stateChangeStart',function(event,toState,fromState,toParams,fromParams){
+        console.log('state change: '+fromParams.name +' -> '+toParams.name);
+
         if(toState.params.name === 'landing'){
             $state.go('landing.main');
         }

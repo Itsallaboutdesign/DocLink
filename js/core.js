@@ -52,8 +52,45 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
                 name: 'aboutus',
                 public:true,
                 display: 'About us'
-            }
+            },
+            templateUrl:'templates/aboutus.html'
         })
-
+        .state('landing.clinics',{
+            url:'/clinics',
+            params:{
+                name:'clinics',
+                public:false,
+                display:'Our Partner Clinics'
+            },
+            templateUrl:'templates/clinics.html'
+        })
+        //ETATS FILS DE CLINICS
+            .state('landing.clinics.list',{
+                url:'/clinics/list',
+                params:{
+                    name:'clinics.list',
+                    public:false,
+                    display:'Clinics list'
+                },
+                templateUrl:'templates/views/clinics.list.html'
+            })
+            .state('landing.clinics.info',{
+                url:'/clinics/info',
+                params:{
+                    name:'clinics.info',
+                    public:false,
+                    display:'Clinic Info'
+                },
+                templateUrl:'templates/views/clinics.info.html'
+            })
+            .state('landing.clinics.map',{
+                url:'/clinics/info/map',
+                params:{
+                    name:'clinics.map',
+                    public:false,
+                    display:'Clinic Map'
+                },
+                templateUrl:'templates/view/clinics.map.html'
+            })
     $urlRouterProvider.otherwise('');
 }]);

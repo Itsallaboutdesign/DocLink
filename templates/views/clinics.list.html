@@ -1,0 +1,16 @@
+<!-- From Clinic Landing Template-->
+<!-- Clinic list view-->
+
+<ul class="collection teal-text text-lighten-2 scrollable-4">
+    <li class="collection-item" ng-repeat="clinic in clinics | filter: clinicSearch as filtered">
+            <span class="weight-7">{{clinic.name}}</span><br>
+            <p class="weight-3">{{clinic.type}}<br>
+                <i class="tiny material-icons left">location_on</i>{{clinic.location}}<br>
+                <i class="tiny material-icons left">phone</i>{{clinic.phone}}
+            </p>
+            <a class="btn teal white-text waves-effect left" ng-click="clinicInfo(clinic)">Info</a>
+            <a class="btn teal white-text waves-effect right" ng-click="clinicMap(clinic)">Map</a>
+            <br><br>
+    </li>
+    <li class="collection-item red-text text-lighten-3" ng-show="!filtered.length">Sorry, no clinic matches your query<li>
+</ul>

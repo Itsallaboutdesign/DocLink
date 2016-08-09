@@ -523,3 +523,46 @@ ANIMATIONS
 	-o-transition:all .5s ease-in-out;
 	transition:all .5s ease-in-out;
 }
+.include-view-container {
+  position: relative;
+  height: 65px;
+  margin-bottom:75%;
+}
+
+.include-view-container > .ng-enter,.include-view-container > .ng-leave,.include-view-container > .ng-enter-active,.include-view-container > .ng-leave-active {
+  position: absolute;
+  left: 0;
+  right: 0;
+  -webkit-transition:all 0.3s ease-in-out;
+    -moz-transition:all .3s ease-in-out;
+    -o-transition:all .3s ease-in-out;
+    transition:all .3s ease-in-out;
+}
+
+.include-view-container > .ng-enter {
+  opacity: 0;
+  -webkit-transform:translate3d(-500px,0, 0);
+  -moz-transform:translate3d(-500px,0, 0);
+  transform:translate3d(-500px,0, 0);
+}
+
+.include-view-container > .ng-enter-active {
+	opacity: 1;
+    -webkit-transform:translate3d(0, 0, 0);
+    -moz-transform:translate3d(0, 0, 0);
+    transform:translate3d(0, 0, 0);
+}
+
+.include-view-container > .ng-leave {
+  opacity: 1;
+  -webkit-transform:translate3d(0, 0, 0);
+  -moz-transform:translate3d(0, 0, 0);
+  transform:translate3d(0, 0, 0);
+}
+
+.include-view-container > .ng-leave-active {
+  opacity: 0;
+  -webkit-transform:translate3d(500px, 0, 0);
+  -moz-transform:translate3d(500px, 0, 0);
+  transform:translate3d(500px, 0, 0);
+}
