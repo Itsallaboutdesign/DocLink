@@ -92,5 +92,14 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
                 },
                 templateUrl:'templates/view/clinics.map.html'
             })
+        .state('landing.contact',{
+            url:'/contact',
+            params:{
+                name:'contact',
+                public:true,
+                display:'Contact Us'
+            },
+            templateUrl:'templates/contact.html'
+        })
     $urlRouterProvider.otherwise('');
 }]);

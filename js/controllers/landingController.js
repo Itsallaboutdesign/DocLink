@@ -64,4 +64,10 @@ ctrl.controller('LandingCtrl',['$state','$rootScope','$scope','core',function($s
         $scope.currentClinic = {};
     }
 
+    ///PARTIE CONTACT
+    //Fonction d'envoi du formulaire de contact
+    $scope.sendForm = function(){
+        Materialize.toast('Your contact request was successfully sent',3000,'teal');
+    }
+
 }])

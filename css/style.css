@@ -526,7 +526,7 @@ ANIMATIONS
 .include-view-container {
   position: relative;
   height: 65px;
-  margin-bottom:75%;
+  margin-bottom:450px;
 }
 
 .include-view-container > .ng-enter,.include-view-container > .ng-leave,.include-view-container > .ng-enter-active,.include-view-container > .ng-leave-active {

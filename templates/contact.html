@@ -1,0 +1,59 @@
+<!-- Contact Landing Template-->
+<div class="row parallax-container height-4 teal-screen valign-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s6">
+                <h2 class="white-text weight-7 valign">Our team is always available</h2>
+            </div>
+        </div>
+    </div>
+    <div class="parallax">
+        <img src="img/contact.jpg" alt="Our partners">
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        <div class="col s5">
+
+        </div>
+        <div class="col s7 teal-text text-lighten-3">
+            <span class="weight-7">Contact Info</span><br>
+            <p><i class="material-icons">location_on</i>WithWeCare Address<br>
+                <i class="material-icons">phone</i>+33 4 45 73 28 67<br>
+                <i class="material-icons">mail</i>contact@withwecare.com
+            </p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        <div class="row">
+            <h3 class="red-text text-lighten-3 weight-7 center">Send us a message:</h3>
+        </div>
+        <div class="row">
+            <form name="contactForm" class="col l8 offset-l2" ng-submit="sendForm()">
+                <div class="input-field col s6">
+                    <input type="text" name="name" id="name" ng-model="request.name">
+                    <label for="name">Name</label>
+                </div>
+                <div class="input-field col s6">
+                    <input type="text" name="surname" id='surname' ng-model="request.surname">
+                    <label for="surname">Surname</label>
+                </div>
+                <div class="input-field col s12">
+                    <input type="text" name="subject" id="subject" ng-model="request.subject">
+                    <label for="subjet">Subject</label>
+                </div>
+                <div class="input-field col s12">
+                    <textarea class="materialize-textarea" name="message" id="message" ng-model="request.message">
+                    </textarea>
+                    <label for="message">Message</label>
+                </div>
+                <button class="btn teal white-text center waves-effect" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<ng-include src="'templates/snippets/footer.html'"></ng-include>
+<script type="text/javacript" src="js/init.js"></script>
