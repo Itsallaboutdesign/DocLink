@@ -11,6 +11,8 @@ ctrl.controller('LandingCtrl',['$state','$rootScope','$scope','core',function($s
     //Affichage de la page clinics
     $scope.clinicsView = 'templates/views/clinics.list.html'; //url de la page à inclure
     $scope.currentClinic = {};
+    //Affichage de la page de contact
+    $scope.request = {};
 
     ///INITIALISATION HORS DONNEES SERVEUR
     $state.go('landing.main');
@@ -68,6 +70,7 @@ ctrl.controller('LandingCtrl',['$state','$rootScope','$scope','core',function($s
     //Fonction d'envoi du formulaire de contact
     $scope.sendForm = function(){
         Materialize.toast('Your contact request was successfully sent',3000,'teal');
+        $scope.request = {};
     }
 
 }])
