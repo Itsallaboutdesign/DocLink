@@ -51,20 +51,48 @@ var Address = mongoose.model('Address',{
 var Clinic = mongoose.model('Clinic',{
     name : String,
     doctors : [Number],
-    country : Country
+    country : Country,
+    phone: Number,
+    rating : Number
+});
+
+//Template of information fields required for client post-operation advisory
+var Template = mongoose.model('Template',{
+
 });
 
 var Surgery = mongoose.model('Surgery',{
     name : String,
     clinic : Clinic,
-    doctor_id : Number
+    doctor_id : Number,
+    template: Template
 });
 
-var File = mongoose.model('File',{
-    name : String,
-    doctor_id : Number,
-    patient_id : Number,
-    surgery : Surgery,
+var Resume = mongoose.model('Resume',{
+    // study:,
+    // speciality:,
+    // surgery:,
+    // clinics_history:
+});
+
+var Insurance = mongoose.model('Insurance',{
+    name: String,
+    address : Address,
+    siren : String
+});
+
+var Message = mongoose.model('Message',{
+    object : String,
+    content: String,
+    author_id : Number,
+    author_name : String,
+    author_surname: String,
+    dest_id : Number,
+    dest_name : String,
+    dest_surname : String,
+    read : Boolean,
+    read_time : Number,
+    sent_time : Number
 });
 
 var User = mongoose.model('User',{
@@ -74,6 +102,8 @@ var User = mongoose.model('User',{
     email : String,
     birthdate : Number,
     sex: Boolean, //True for Male and False for Female
+    //Insurance information
+    insurance : Insurance,
     //Location information
     country : Country,
     address : Address,
@@ -84,7 +114,10 @@ var User = mongoose.model('User',{
     user_type : Boolean, //True for Patient and False for Doctor
     status : Boolean, //Status defines whether a User has an open case or not
     clics : Number, //Monitoring of the User activity in terms of clics
-    state_changes : Number, //Monitoring of the User activity in terms of page views
+    state_changes : Number, //Monitoring of the User activity in terms of page views,
+    signin_date: Number,
+    inbox : [Message],
+    outbox : [Message],
     //Medical information
     //PATIENT PART
     history : [Number], //Keep an history of all records ids from the users
@@ -92,7 +125,11 @@ var User = mongoose.model('User',{
     //DOCTOR PART
     surgery: Surgery,
     clinic: Clinic,
-    previous_patients : [Number] //An array of all his patients ids
+    resume: Resume,
+    previous_patients : [Number], //An array of all his patients ids
+    rating : Number
+    //MANAGER PART
+
 });
 
 var Quote = mongoose.model('Quote',{
@@ -104,5 +141,38 @@ var Quote = mongoose.model('Quote',{
     doctor_id : Number
     //App information
     hits : Number,
-    
+    validations : Number,
+    date: Number //timestamp
+    last_modified : Number
 });
+
+var File = mongoose.model('File',{
+    name : String,
+    doctor_id : Number,
+    patient_id : Number,
+    quote : Quote,
+    creation_date: Number,
+    issue_date: Number,
+    country: Country,
+    clinic : Clinic,
+    touristic_advices : [String],
+    pre_advices: [String],
+    during_advices : [String],
+    post_advices: [String]
+});
+
+var Article = mongoose.model('Article',{
+    name: String,
+    country : Country,
+    surgery: Surgery,
+    doctor : Doctor,
+    content: String,
+    author_name : String,
+    author_surname : String,
+    author_email: String,
+    rating : Number
+});
+
+
+
+//API Functions
