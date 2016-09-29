@@ -1,5 +1,8 @@
 var serv = angular.module('Services',[]);
 
+var serverPort = 8080;
+var serverUrl = 'http://localhost:'+serverPort;
+
 serv.factory('core',['$http',function($http){
     return{
         //Temporary function, for test purposes only

@@ -14,7 +14,7 @@
 				<li><a ng-click="goTo('landing.clinics')">CLINICS</a></li>
 				<li><a ng-click="goTo('landing.contact')">CONTACT US</a></li>
 				<li><a href="#/landing/">FORUM</a></li>
-				<li><a href="#/landing/">LOGIN</a></li>
+				<li><a class="modal-trigger" data-target="loginModal">LOGIN</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -26,3 +26,115 @@
 		<ui-view></ui-view>
 	</div>
 </div>
+
+<!--Modals-->
+<div class="modal modal-fixed-footer seamlessModal" id="loginModal" ng-controller="AuthCtrl">
+	<div class="modal-content valign-wrapper">
+
+			<div class="container">
+				<div class="row">
+					<div class="col s12 m6 l4">
+						<span class="minor valign">
+							<i class="material-icons medium left">account_circle</i>
+							Login
+						</span>
+						<hr class="divider hide-on-med-and-up">
+					</div>
+					<div class="col s12 m6 l8 white-text">
+						<form class="valign">
+							<div class="input-field">
+								<i class="material-icons prefix grey-text">mail</i>
+								<input class="validate" id="email" type="email" ng-model="user.email">
+								<label>Email</label>
+							</div>
+							<div class="input-field">
+								<i class="material-icons prefix grey-text">lock</i>
+								<input class="validate" id="password" type="password" ng-model="user.password" >
+								<label>Password</label>
+							</div>
+						</form>
+						<button class="btn-flat waves-effect waves-light teal-text modal-trigger modal-action modal-close" data-target="signinModal">Don't have an account?</button>
+					</div>
+				</div>
+			</div>
+
+	</div>
+	<div class="modal-footer">
+		<button class="btn teal-lighten-2 white-text waves-effect waves-light right" ng-click="login()">Login</button>
+	</div>
+</div>
+
+<div class="modal modal-fixed-footer seamlessModal" id="signinModal" ng-controller="AuthCtrl">
+	<div class="modal-content valign-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col s12 m6 l4 valign">
+					<span class="minor">
+						<i class="material-icons medium left">assignment_turned_in</i>
+						Sign In
+					</span>
+					<p class="teal-text text-lighten-2">
+						Quickly signin to our services. It won't take you more than a minute.
+					</p>
+					<hr class="divider hide-on-med-and-up">
+				</div>
+				<div class="col s12 m6 l8 white-text">
+					<form class="valign">
+						<div class="input-field col s12">
+							<i class="material-icons prefix grey-text">account_circle</i>
+							<input class="validate" type="text" id="name" ng-model="newUser.name" required>
+							<label>Name</label>
+						</div>
+						<div class="input-field col s12">
+							<i class="material-icons prefix grey-text">account_circle</i>
+							<input class="validate" type="text" id="surname" ng-model="newUser.surname" required>
+							<label>Surname</label>
+						</div>
+						<div class="input-field col s12">
+							<i class="material-icons prefix grey-text">mail</i>
+							<input class="validate" type="email" id="email" ng-model="newUser.email" required>
+							<label>E-mail</label>
+						</div>
+						<span class="label col s6">Birthdate</span>
+						<span class="label col s6">Gender</span>
+						<div class="input-field col s6">
+							<i class="material-icons prefix grey-text">date_range</i>
+							<input class="validate datepicker" type="date" id="birth" ng-modal="newUser.birthdate" max="1998-09-28" required>
+						</div>
+						<div class="input-field col s6">
+							<div class="switch">
+								<label>
+								 Female
+								  <input type="checkbox" ng-model="newUser.sex">
+								  <span class="lever"></span>
+								  Male
+								</label>
+							</div>
+						</div>
+						<div class="input-field col s12">
+							<i class="material-icons prefix grey-text">lock</i>
+							<input class="validate" type="password" id="password" ng-model="newUser.password" required>
+							<label>Password</label>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn red lighten-2 white-text waves-effect left modal-action modal-close modal-trigger" data-target="loginModal"><i class="material-icons left">arrow_left</i>Back</button>
+		<button class="btn teal white-text waves-effect right modal-action modal-close" ng-click="signin()">Sign In</button>
+	</div>
+</div>
+
+<!--Init-->
+<script>
+	$(document).ready(function(){
+		  $(".button-collapse").sideNav();
+		  $('.modal-trigger').leanModal();
+		  $('.datepicker').pickadate({
+			selectMonths: true, // Creates a dropdown to control month
+			selectYears: 99, // Creates a dropdown of 1 year to control year
+		   });
+	  });
+</script>

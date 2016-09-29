@@ -1,5 +1,7 @@
-var app = angular.module('WWC',['Ctrls','ui.router','ngAnimate']);
+var app = angular.module('WWC',['Ctrls','Services','ui.router','ngAnimate']);
+
 console.log('Welcome to WithWeCare');
+
 app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
     $stateProvider.state('home',{
         url:'/home',

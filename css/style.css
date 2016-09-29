@@ -422,6 +422,24 @@ footer{
 	transition:all .3s ease-in-out;
 }
 
+
+/*
+
+MODALS
+------
+
+*/
+
+.seamlessModal{
+	background-color:rgba(0,0,0,0.5) !important;
+}
+.seamlessModal .modal-content{
+	background-color:rgba(0,0,0,0.5) !important;
+}
+.seamlessModal .modal-footer{
+	background-color:rgba(0,0,0,0.5) !important;
+}
+
 /*
 
 ANIMATIONS
