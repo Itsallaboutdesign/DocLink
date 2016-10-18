@@ -1,0 +1,45 @@
+<!--Dashboard template-->
+
+<!--Navbar-->
+<div class="row">
+	<nav class="teal white-text dashnav">
+		<div class="nav-wrapper">
+			<a href="#" class="brand-logo teal-text text-lighten-3 left">WithWeCare LOGO<span ng-if="logged"> Logged</span></a>
+			<ul class="white-text right">
+				<li><a ng-click="goTo('landing.main')">HOME</a></li>
+				<li><a ng-click="goTo('landing.about')">QUOTES</a></li>
+				<li><a ng-click="goTo('landing.whatwedo')">INTERVENTIONS</a></li>
+				<li><a ng-click="goTo('landing.whatwedo')">CALENDAR</a></li>
+				<li><a href="#/landing/">FORUM</a></li>
+				<li ng-show="logged" ng-controller="AuthCtrl"><a ng-click="logout()">DECONNEXION<a><li>
+			</ul>
+		</div>
+	</nav>
+</div>
+
+<div class="row">
+	<!--Content-->
+	<div class="ui-view-container">
+		<ui-view></ui-view>
+	</div>
+</div>
+
+<!-- Fixed action button-->
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large red lighten-2">
+      <i class="large material-icons">settings_phone</i>
+    </a>
+    <ul>
+      <li><a class="btn-floating teal darken-1 tooltipped" data-tooltip="Call your doctor"  data-position="left" ><i class="material-icons">phone</i></a></li>
+      <li><a class="btn-floating teal tooltipped" data-tooltip="Chat with your doctor"  data-position="left"><i class="material-icons">chat</i></a></li>
+      <li><a class="btn-floating teal lighten-1 tooltipped" data-tooltip="Info about your doctor"  data-position="left"><i class="material-icons">info</i></a></li>
+      <li><a class="btn-floating teal lighten-2 tooltipped" data-tooltip="Recommended articles"  data-position="left"><i class="material-icons">view_headline</i></a></li>
+    </ul>
+  </div>
+
+ <!--initialization script-->
+<script>
+  $(document).ready(function(){
+    $('.tooltipped').tooltip();
+  });
+ </script>

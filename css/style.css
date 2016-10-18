@@ -12,6 +12,17 @@ html,body{
 nav{
 	height:300px;
 }
+.dashnav{
+	z-index:1;
+	height:75px !important;
+}
+.dashsidenav{
+	margin-top:-20px;
+	height:100vh;
+	z-index:0;
+	color:red;
+
+}
 
 /*
 
@@ -275,7 +286,6 @@ select{
 	border: solid 1px rgb(239,154,154);
 	background-color:white !important;
 }
-
 .titre{
 
 	font-size:40px;

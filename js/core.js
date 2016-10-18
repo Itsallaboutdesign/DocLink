@@ -12,7 +12,28 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
             public: false,
             display:'Accueil'
         }
-    }).state('landing',{
+    })
+    .state('dashboard',{
+        url:'/dashboard',
+        templateUrl:'templates/dashboard.html',
+        controller:'DashboardCtrl',
+        params:{
+            name: 'dashboard',
+            public:false,
+            display:'Dashboard'
+        }
+    })
+        //ETATS FILS DE DASHBOARD
+        .state('dashboard.home',{
+            url:'/dashboard/home',
+            templateUrl:'templates/views/dashboard.home.html',
+            params:{
+                name:'dashboard.home',
+                public:false,
+                display:'Dashboard'
+            }
+        })
+    .state('landing',{
         url:'',
         templateUrl: 'templates/landing.html',
         controller: 'LandingCtrl',

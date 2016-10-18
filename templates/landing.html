@@ -4,7 +4,7 @@
 <div class="row">
 	<nav class="white">
 		<div class="row">
-			<a href="#" class="brand-logo teal-text text-lighten-3 center">WithWeCare LOGO</a>
+			<a href="#" class="brand-logo teal-text text-lighten-3 center">WithWeCare LOGO<span ng-if="logged"> Logged</span></a>
 		</div>
 		<div class="nav-wrapper" style="text-align:center;">
 			<ul class="menu">
@@ -14,12 +14,23 @@
 				<li><a ng-click="goTo('landing.clinics')">CLINICS</a></li>
 				<li><a ng-click="goTo('landing.contact')">CONTACT US</a></li>
 				<li><a href="#/landing/">FORUM</a></li>
-				<li><a class="modal-trigger" data-target="loginModal">LOGIN</a></li>
+				<li><a ng-show="!logged" class="modal-trigger" data-target="loginModal">LOGIN</a>
+				<a ng-click="goTo('dashboard')"  ng-show="logged">{{currentUser.surname | uppercase}}<a><li>
 			</ul>
 		</div>
 	</nav>
 </div>
-
+<ul id="account_dropdown" class="dropdown-content white" style="z-index:100;">
+	  <li><a href="#/management" class="teal-text">Profile</a></li>
+	  <li><a href="#/dashboard" class="teal-text">Dashboard</a></li>
+	  <li class="divider"></li>
+	  <li><a class="teal-text" ng-click="logout()">Logout</a></li>
+ </ul>
+ <ul id="account_dropdown2" class="dropdown-content white" style="z-index:100;">
+ 	  <li><a href="#/dashboard" class="teal-text">Dashboard</a></li>
+ 	  <li class="divider"></li>
+ 	  <li><a class="teal-text" ng-click="logout()">Logout</a></li>
+  </ul>
 <!--Views-->
 <div class="row">
 	<div class="ui-view-container">
@@ -136,5 +147,9 @@
 			selectMonths: true, // Creates a dropdown to control month
 			selectYears: 99, // Creates a dropdown of 1 year to control year
 		   });
+		   $('.dropdown-button').dropdown({
+		      hover: true, // Activate on hover
+		    }
+		  );
 	  });
 </script>

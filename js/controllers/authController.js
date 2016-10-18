@@ -6,8 +6,15 @@ ctrl.controller('AuthCtrl',['$http','$scope','$rootScope','$state','signin','log
     $scope.newUser = {
         sex : false
     };
-    $scope.currentUser = {}; //Testing purposes variable
-    $rootScope.registeredUsers = []; //Testing purposes variable
+    if(!$rootScope.logged) $rootScope.currentUser = {}; //Testing purposes variable
+    $rootScope.registeredUsers = [{
+        name : 'Test',
+        surname :'Test',
+        email : 'test@test.com',
+        birthdate : 1476778180000,
+        sex: true,
+        password: 'test'
+    }]; //Testing purposes variable
 
     //Login
     $scope.login = function(){
@@ -20,8 +27,11 @@ ctrl.controller('AuthCtrl',['$http','$scope','$rootScope','$state','signin','log
                 if($rootScope.registeredUsers[i].email === $scope.user.email){
                     exists = true;
                     if($rootScope.registeredUsers[i].password === $scope.user.password){
-                        $scope.currentUser = $rootScope.registeredUsers[i];
-                        Materialize.toast("You are now connected, "+$scope.currentUser.name,3000,'teal');
+                        $rootScope.currentUser = $rootScope.registeredUsers[i];
+                        $rootScope.logged = true;
+                        Materialize.toast("You are now connected, "+$rootScope.currentUser.name,3000,'teal');
+                        $('#loginModal').closeModal();
+                        $state.go('dashboard');
                     }else Materialize.toast("Wrong password",3000,'red lighten-2');
                     break;
                 }
@@ -29,6 +39,15 @@ ctrl.controller('AuthCtrl',['$http','$scope','$rootScope','$state','signin','log
             if(!exists) Materialize.toast("This account doesn't exist.",3000,'red lighten-2');
         }else{
             Materialize.toast("This account doesn't exist.",3000,'red lighten-2');
+        }
+    }
+
+    $scope.logout = function(){
+        if($rootScope.logged){
+            $rootScope.logged = false;
+            $rootScope.currentUser = {};
+            Materialize.toast('You were successfully logged out',3000,'teal');
+            $state.go('landing.main');
         }
     }
 
@@ -43,7 +62,7 @@ ctrl.controller('AuthCtrl',['$http','$scope','$rootScope','$state','signin','log
 
         signin.addUser($scope.newUser)
         .then(function addUserSuccess(data){
-            Materialize.toast(data.data.msg);
+            Materialize.toast(data.data.msg,3000,'teal');
         },function addUserError(response){
             console.log(response.data);
         });

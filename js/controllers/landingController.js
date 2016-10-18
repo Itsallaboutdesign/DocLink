@@ -24,10 +24,6 @@ ctrl.controller('LandingCtrl',['$state','$rootScope','$scope','core',function($s
     $scope.goToAbout = function(){
         $state.go('landing.about');
     }
-    $scope.goTo = function(destination){
-        console.log(destination);
-        $state.go(destination);
-    }
 
     //Données d'affichage
     $scope.whatWeDoData = [
