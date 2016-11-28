@@ -1,0 +1,80 @@
+<!-- Dashboard Interventions view-->
+<div class="container">
+
+    <ul class="tabs hoverable z-depth-1 white-text teal-lighten-3">
+        <li class="tab"><a href="#quotes">Quotes</a></li>
+        <li class="tab"><a href="#medprofile">Medical Profile</a></li>
+        <li class="tab"><a href="#trip">Trip</a></li>
+        <li class="tab"><a href="#advices">Advices</a></li>
+        <li class="tab"><a href="#payment">Payment</a></li>
+    </ul>
+
+    <div id="quotes">
+        <div class="col l4 scrollable-7">
+            <div class="card horizontal white avatar teal-text text-lighten-2" ng-repeat="quote in quotes">
+                <div class="card-content" ng-click="showDescription(quote)">
+                    <div class="row valign-wrapper">
+                        <div class="col s4">
+                            <img class="circle responsive-img" ng-src="{{quote.pic}}" alt="{{quote.surname}} {{quote.name}} profile picture">
+                        </div>
+                        <div class="col s8">
+                            <h5>{{quote.surname}} {{quote.name}}</h5>
+                            <p>Specialty:{{quote.specialty}}</br>Price:{{quote.price}}€</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <a ng-click="showDescription(quote)"><i class="material-icons right">chevron_right</i></a>
+                </div>
+            </div>
+        </div>
+        <div class="col l8">
+            <div class="row valign-wrapper">
+                <span class="grey-text text-lighten-2 center" ng-hide="showingDescription">Click on a quote to display it</span>
+            </div>
+            <div class="card" ng-show="showingDescription">
+                <div class="card-content teal-text text-lighten-2">
+                    <div class="row valign-wrapper">
+                        <div class="col s2">
+                            <img class="circle responsive-img" ng-src="{{currentDescription.pic}}" alt="{{currentDescription.surname}} {{currentDescription.name}} profile picture">
+                        </div>
+                        <div class="col s9">
+                                <h3>{{currentDescription.surname}} {{currentDescription.name}}</h3>
+                                <p>{{currentDescription.specialty}}</br>Quote: {{currentDescription.price}}</p>
+                        </div>
+                        <div class="col s1">
+                            <a ng-click="closeDescription()"><i class="material-icons">close</i></a>
+                        </div>
+                    </div>
+                    <hr class="divider">
+                    <div class="row">
+                        <div class="col s10 offset-s1">
+                            <p><b>Motivation:</b></br>{{currentDescription.motivation}}<br></br>
+                                <b>Selected period:</b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <a class="btn teal white-text waves-effect">Accept</a>
+                    <a class="btn teal white-text waves-effect">Select new period</a>
+                    <a class="btn teal white-text waves-effect">Book interview</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="medprofile">
+        <h3 class="teal-text text-lighten-2">Medical Profile</h3>
+    </div>
+</div>
+
+
+<script>
+	$(document).ready(function(){
+		$('.modal-trigger').leanModal();
+		$('.tooltipped').tooltip({delay: 50});
+		$('ul.tabs').tabs();
+		$('.scrollspy').scrollSpy();
+	})
+</script>

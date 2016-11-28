@@ -16,12 +16,14 @@ nav{
 	z-index:1;
 	height:75px !important;
 }
+.dashnav li a{
+	color: #009688 !important;
+}
 .dashsidenav{
 	margin-top:-20px;
 	height:100vh;
 	z-index:0;
 	color:red;
-
 }
 
 /*
@@ -287,14 +289,11 @@ select{
 	background-color:white !important;
 }
 .titre{
-
 	font-size:40px;
 	font-weight:300;
 	padding-left:10%;
 	margin-left:25px;
-
 }
-
 .breadcrumb{
 	padding-top:20px;
 }
@@ -383,6 +382,12 @@ footer{
     transition:all .2s ease-in-out;
 }
 
+/*DASHBOARD*/
+
+.quickItem{
+	border-radius: 2px;
+}
+
 /*IMAGES*/
 
 .cardio{
@@ -430,6 +435,19 @@ footer{
 	-moz-transition:all .3s ease-in-out;
 	-o-transition:all .3s ease-in-out;
 	transition:all .3s ease-in-out;
+}
+
+/*TABS*/
+
+.tabs{
+	background-color:#80CBC4 !important;
+}
+
+.tabs .indicator{
+	background-color:#004D40 !important;
+}
+.tabs .tab a{
+	color: white !important;
 }
 
 

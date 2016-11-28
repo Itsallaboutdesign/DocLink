@@ -53,6 +53,37 @@ serv.factory('core',['$http',function($http){
                 }
 
             ]
+        },
+
+        getQuotes :function(){
+            return[
+                {
+                    name:'Trouillier',
+                    surname:'Maxime',
+                    price:5000,
+                    specialty:'Heart surgeon',
+                    motivation:'Best doctor around here',
+                    pic:'img/profile_pictures/trouillet.png'
+                },{
+                    name:'Trouillier',
+                    surname:'Maxime',
+                    price:5000,
+                    specialty:'Heart surgeon',
+                    motivation:'Best doctor around here'
+                },{
+                    name:'Trouillier',
+                    surname:'Maxime',
+                    price:5000,
+                    specialty:'Heart surgeon',
+                    motivation:'Best doctor around here'
+                },{
+                    name:'Trouillier',
+                    surname:'Maxime',
+                    price:5000,
+                    specialty:'Heart surgeon',
+                    motivation:'Best doctor around here'
+                }
+            ]
         }
     }
 }]);

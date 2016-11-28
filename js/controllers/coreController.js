@@ -6,8 +6,7 @@ ctrl.controller('MainCtrl',['$state','$scope','$rootScope',function($state,$scop
     console.log('Main Ctrl');
 
     //Initialisation générale
-    $rootScope.logged = false;
-
+    $rootScope.logged = true;
 
     //Changement d'états
     $scope.goTo = function(destination){

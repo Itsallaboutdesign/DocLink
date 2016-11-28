@@ -2,16 +2,17 @@
 
 <!--Navbar-->
 <div class="row">
-	<nav class="teal white-text dashnav">
+	<nav class="white teal-text dashnav">
 		<div class="nav-wrapper">
-			<a href="#" class="brand-logo teal-text text-lighten-3 left">WithWeCare LOGO<span ng-if="logged"> Logged</span></a>
-			<ul class="white-text right">
-				<li><a ng-click="goTo('landing.main')">HOME</a></li>
-				<li><a ng-click="goTo('landing.about')">QUOTES</a></li>
-				<li><a ng-click="goTo('landing.whatwedo')">INTERVENTIONS</a></li>
-				<li><a ng-click="goTo('landing.whatwedo')">CALENDAR</a></li>
-				<li><a href="#/landing/">FORUM</a></li>
-				<li ng-show="logged" ng-controller="AuthCtrl"><a ng-click="logout()">DECONNEXION<a><li>
+			<a ng-click="goTo('landing.main')" class="brand-logo teal-text text-lighten-3 left">WithWeCare LOGO<span ng-if="logged"> Logged</span></a>
+			<ul class="teal-text right">
+				<li><a ng-click="goTo('dashboard.home')">HOME</a></li>
+				<li><a ng-click="goTo('dashboard.interventions')">INTERVENTIONS</a></li>
+				<li><a ng-click="goTo('dashboard.history')">HISTORY OF ACTIONS</a></li>
+				<li><a ng-click="goTo('dashboard.calendar')">CALENDAR</a></li>
+				<li><a ng-click="goTo('forum')">FORUM</a></li>
+				<li ng-show="logged" ng-controller="AuthCtrl"><a ng-click="logout()">LOG OUT<a><li>
+				<li><a><i class="material-icons">search</i></a></li>
 			</ul>
 		</div>
 	</nav>
@@ -19,6 +20,7 @@
 
 <div class="row">
 	<!--Content-->
+	<!--Here are the views of the dashboard part, located in templates/views under the prefix dashboard.xxx.html-->
 	<div class="ui-view-container">
 		<ui-view></ui-view>
 	</div>

@@ -212,6 +212,8 @@ var articleSchema = new Schema({
 var Article = mongoose.model('Article',articleSchema);
 
 //API Functions
+
+//Add User
 app.post('/addUser',function(req,res){
     console.log('Server Signin');
     console.log(req);
