@@ -4,19 +4,25 @@
 <div class="row">
 	<nav class="white teal-text dashnav">
 		<div class="nav-wrapper">
-			<a ng-click="goTo('landing.main')" class="brand-logo teal-text text-lighten-3 left">WithWeCare LOGO<span ng-if="logged"> Logged</span></a>
+			<a ng-click="goTo('landing.main')" class="brand-logo teal-text text-lighten-3 left">WithWeCare</a>
 			<ul class="teal-text right">
 				<li><a ng-click="goTo('dashboard.home')">HOME</a></li>
 				<li><a ng-click="goTo('dashboard.interventions')">INTERVENTIONS</a></li>
 				<li><a ng-click="goTo('dashboard.history')">HISTORY OF ACTIONS</a></li>
 				<li><a ng-click="goTo('dashboard.calendar')">CALENDAR</a></li>
 				<li><a ng-click="goTo('forum')">FORUM</a></li>
-				<li ng-show="logged" ng-controller="AuthCtrl"><a ng-click="logout()">LOG OUT<a><li>
-				<li><a><i class="material-icons">search</i></a></li>
+				<li><a class="dropdown-button" data-activates="profileDropdown"><i class="material-icons">account_circle</i></a>
+				<li ng-show="logged"><a><i class="material-icons">search</i></a></li>
 			</ul>
 		</div>
 	</nav>
 </div>
+
+<!--Profile dropdown-->
+<ul id="profileDropdown" class="dropdown-content" ng-controller="AuthCtrl">
+  <li><a href="#!"><i class="material-icons left">account_circle</i>Username</a></li>
+  <li ng-click="logout()"><a href="#!"><i class="material-icons left">exit_to_app</i>Log out</a></li>
+</ul>
 
 <div class="row">
 	<!--Content-->
@@ -40,8 +46,4 @@
   </div>
 
  <!--initialization script-->
-<script>
-  $(document).ready(function(){
-    $('.tooltipped').tooltip();
-  });
- </script>
+<script type="text/javascript" src="js/init.js"> </script>

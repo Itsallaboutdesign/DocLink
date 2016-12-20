@@ -283,6 +283,7 @@ select{
 .dropdown-content{
 	margin-top:45px;
 	width:300px;
+	border-radius:5px;
 }
 .btn-bordered{
 	border: solid 1px rgb(239,154,154);
@@ -305,6 +306,17 @@ select{
 	font-size:2vw;
 	color:#ef9a9a;
 }
+.card-panel{
+	border-radius:5px;
+}
+.tabs{
+	border-radius:10px;
+}
+
+li > .tab{
+	margin:0.5px;
+}
+
 .tabs .indicator{
 	/*
 	color:#607d8b; /*Blue-grey
@@ -325,6 +337,9 @@ select{
 	-webkit-transition: all 0.5s;
 	-moz-transition: all 0.5s;
 	transition: all 0.5s;
+}
+.seamless{
+	background-color:rgba(0,0,0,0) !important;
 }
 
 /*FOOTER*/
@@ -450,6 +465,10 @@ footer{
 	color: white !important;
 }
 
+.tabs .disabled a{
+	color: #B2DFDB !important;
+}
+
 
 /*
 
@@ -474,6 +493,19 @@ ANIMATIONS
 ----------
 
 */
+
+.ng-hide {
+  opacity: 0;
+}
+
+.ng-hide-remove {
+  transition: opacity ease-in-out 200ms;
+}
+
+.ng-hide-add {
+  transition: opacity ease-in-out 100ms;
+}
+
 .ng-enter {
   opacity: 0;
     -webkit-transition:all 0.3s ease-in-out;

@@ -1,74 +1,415 @@
 <!-- Dashboard Interventions view-->
 <div class="container">
 
-    <ul class="tabs hoverable z-depth-1 white-text teal-lighten-3">
-        <li class="tab"><a href="#quotes">Quotes</a></li>
-        <li class="tab"><a href="#medprofile">Medical Profile</a></li>
-        <li class="tab"><a href="#trip">Trip</a></li>
-        <li class="tab"><a href="#advices">Advices</a></li>
-        <li class="tab"><a href="#payment">Payment</a></li>
+    <ul class="tabs hoverable z-depth-1 teal-lighten-3">
+        <li class="tab" id="tab1"><a href="#quotes">Quotes</a></li>
+        <li class="tab disabled teal-text text-lighten-5" id="tab2"><a href="#medprofile">Medical Profile</a></li>
+        <li class="tab disabled teal-text text-lighten-5" id="tab3"><a href="#trip">Trip</a></li>
+        <li class="tab disabled teal-text text-lighten-5" id="tab4"><a href="#advices">Advices</a></li>
+        <li class="tab disabled teal-text text-lighten-5" id="tab5"><a href="#payment">Payment</a></li>
     </ul>
 
+    <!--Quotes-->
     <div id="quotes">
-        <div class="col l4 scrollable-7">
-            <div class="card horizontal white avatar teal-text text-lighten-2" ng-repeat="quote in quotes">
-                <div class="card-content" ng-click="showDescription(quote)">
-                    <div class="row valign-wrapper">
-                        <div class="col s4">
-                            <img class="circle responsive-img" ng-src="{{quote.pic}}" alt="{{quote.surname}} {{quote.name}} profile picture">
+        <div class="row">
+            <p></p>
+        </div>
+        <div class="row">
+            <div class="col s6 l4 scrollable-6">
+                <div class="card horizontal white avatar teal-text text-lighten-2" ng-repeat="quote in quotes">
+                    <div class="card-content" ng-click="showDescription(quote)">
+                        <div class="row valign-wrapper">
+                            <div class="col s4">
+                                <img class="circle responsive-img" ng-src="{{quote.pic}}" alt="{{quote.surname}} {{quote.name}} profile picture">
+                            </div>
+                            <div class="col s8">
+                                <h5>{{quote.surname}} {{quote.name}}</h5>
+                                <p>Specialty:{{quote.specialty}}</br>Price:{{quote.price}}€</p>
+                            </div>
                         </div>
-                        <div class="col s8">
-                            <h5>{{quote.surname}} {{quote.name}}</h5>
-                            <p>Specialty:{{quote.specialty}}</br>Price:{{quote.price}}€</p>
+                    </div>
+                    <div class="card-action">
+                        <a ng-click="showDescription(quote)"><i class="material-icons right">chevron_right</i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col s6 l8">
+                <div class="row valign-wrapper" ng-hide="showingDescription">
+                    <div class="col s4 offset-s4">
+                        <br></br><br></br>
+                        <span class="grey-text text-lighten-2 center">Click on a quote to display it</span>
+                    </div>
+                </div>
+                <div class="card" ng-show="showingDescription">
+                    <div class="card-content teal-text text-lighten-2">
+                        <div class="row valign-wrapper">
+                            <div class="col s2">
+                                <img class="circle responsive-img" ng-src="{{currentDescription.pic}}" alt="{{currentDescription.surname}} {{currentDescription.name}} profile picture">
+                            </div>
+                            <div class="col s9">
+                                    <h3>{{currentDescription.surname}} {{currentDescription.name}}</h3>
+                                    <p>{{currentDescription.specialty}}</br>Quote: {{currentDescription.price}}</p>
+                            </div>
+                            <div class="col s1">
+                                <a ng-click="closeDescription()"><i class="material-icons">close</i></a>
+                            </div>
+                        </div>
+                        <hr class="divider">
+                        <div class="row">
+                            <div class="col s10 offset-s1">
+                                <p><b>Motivation:</b></br>{{currentDescription.motivation}}<br></br>
+                                    <b>Selected period:</b>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row center">
+                            <h5 class="teal-text text-lighten-3" ng-show="currentDescription.accepted">You have accepted this quote!</h5>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <div class="row">
+                            <a class="btn teal white-text waves-effect col s12 l3" ng-if="!currentDescription.accepted" ng-click="acceptQuote()">Accept</a>
+                            <a class="btn red lighten-2 white-text waves-effect col s12 l3" ng-if="currentDescription.accepted" ng-click="cancelQuote()" >Cancel</a>
+                            <a class="btn teal white-text waves-effect col s12 l4" ng-if="currentDescription.accepted" ng-click="selectNewPeriod()">Select new period</a>
+                            <a class="btn teal white-text waves-effect col s12 l4" ng-if="currentDescription.accepted" ng-click="bookInterview()">Book interview</a>
                         </div>
                     </div>
                 </div>
-                <div class="card-action">
-                    <a ng-click="showDescription(quote)"><i class="material-icons right">chevron_right</i></a>
+                <div class="row right" ng-show="currentDescription.accepted">
+                    <a class="btn teal white-text waves-effect" ng-click="interventionTabSet(2)">Next</a>
                 </div>
             </div>
         </div>
-        <div class="col l8">
-            <div class="row valign-wrapper">
-                <span class="grey-text text-lighten-2 center" ng-hide="showingDescription">Click on a quote to display it</span>
+        <div class="row">
+            <p></p>
+        </div>
+        <div class="row center">
+            <h3 class="teal-text text-lighten-2 weight-7">You can also search for other quotes</h3>
+            <a class="btn teal white-text waves-effect" ng-click="goTo('landing.clinics')">Get other quotes</a>
+        </div>
+    </div>
+
+    <!--Medical Profile-->
+    <div id="medprofile">
+        <div class="row">
+            <p></p>
+        </div>
+        <div class="row">
+            <div class="col s10 offset-s1">
+                <span class="teal-text text-lighten-3 weight-7">Requested information for your operation:</span>
+                <p class="grey-text">Physician specialty: <b>{{currentDescription.specialty}}</b><br>
+                Operation performed by: <b>{{currentDescription.surname}} {{currentDescription.name}}</b></p>
             </div>
-            <div class="card" ng-show="showingDescription">
-                <div class="card-content teal-text text-lighten-2">
-                    <div class="row valign-wrapper">
-                        <div class="col s2">
-                            <img class="circle responsive-img" ng-src="{{currentDescription.pic}}" alt="{{currentDescription.surname}} {{currentDescription.name}} profile picture">
-                        </div>
-                        <div class="col s9">
-                                <h3>{{currentDescription.surname}} {{currentDescription.name}}</h3>
-                                <p>{{currentDescription.specialty}}</br>Quote: {{currentDescription.price}}</p>
-                        </div>
-                        <div class="col s1">
-                            <a ng-click="closeDescription()"><i class="material-icons">close</i></a>
-                        </div>
-                    </div>
-                    <hr class="divider">
+        </div>
+        <div class="row">
+            <div class="col s10 offset-s1">
+
+                <!--Personnal info-->
+                <div class="row card-panel hoverable">
+                    <h5 class="teal-text text-lighten-3">Personnal info</h5>
+                    <hr class="divider teal-text">
                     <div class="row">
-                        <div class="col s10 offset-s1">
-                            <p><b>Motivation:</b></br>{{currentDescription.motivation}}<br></br>
-                                <b>Selected period:</b>
-                            </p>
+                        <p></p>
+                    </div>
+                    <form class="col s12 white teal-text text-lighten-3" name="personnalInfo">
+                        <div class="input-field col s6">
+                            <span class="label">State of birth</span></br>
+                            <a class="btn btn-flat teal lighten-2 white-text modal-trigger col s12" data-target="countryModal">{{medicalProfile.state}}</a>
                         </div>
+                        <div class="input-field col s6">
+                            <span class="label">Citizenship</span></br>
+                            <a class="btn btn-flat teal lighten-2 white-text modal-trigger col s12" data-target="citizenModal">{{medicalProfile.citizenship}}</a>
+                        </div>
+                        <div class="input-field col s6">
+                            <span class="label">Date of birth</span></br>
+                            <input type="number" min="01" max="31" name="day" id="day" class="col s3 validate" ng-model="medicalProfile.birthday.day">
+                            <input type="number" min="01" max="12" name="month" id="month" class="col s3 offset-s1 validate" ng-model="medicalProfile.birthday.month">
+                            <input type="number" min="1900" max="1998" name="year" id="year" class="col s3 offset-s1 validate" ng-model="medicalProfile.birthday.year">
+                        </div>
+                        <div class="input-field col s6">
+                            <br>
+                            <input type="text" name="occupation" id="occupation" ng-model="medicalProfile.occupation">
+                            <label for="occupation">Occupation</label>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <p></p>
                     </div>
                 </div>
-                <div class="card-action">
-                    <a class="btn teal white-text waves-effect">Accept</a>
-                    <a class="btn teal white-text waves-effect">Select new period</a>
-                    <a class="btn teal white-text waves-effect">Book interview</a>
+
+                <!--Id Documents-->
+                <div class="row card-panel hoverable">
+                    <h5 class="teal-text text-lighten-3">ID Documents</h5>
+                    <hr class="divider teal-text">
+                    <div class="row">
+                        <p></p>
+                    </div>
+                    <form class="col s12 white teal-text text-lighten-3" name="idDocuments">
+                        <div class="input-field col s6">
+                            <span class="label">Kind of document</span></br>
+                            <a class="btn btn-flat teal lighten-2 white-text modal-trigger col s12" data-target="documentTypeModal">{{medicalProfile.idDocument.type}}</a>
+                        </div>
+                        <div class="input-field col s6">
+                            <br>
+                            <input type="text" class="validate" name="number" id="number" ng-model="medicalProfile.idDocument.number">
+                            <label for="number" data-error="Please type a valid number">Number</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <span class="label">Expiration Date</span></br>
+                            <input type="number" min="01" max="31" name="day" id="day" class="col s3 validate" ng-model="medicalProfile.idDocument.expiry.day">
+                            <input type="number" min="01" max="12" name="month" id="month" class="col s3 offset-s1 validate" ng-model="medicalProfile.idDocument.expiry.month">
+                            <input type="number" min="2016" max="2031" name="year" id="year" class="col s3 offset-s1 validate" ng-model="medicalProfile.idDocument.expiry.year">
+                        </div>
+                    </form>
+                </div>
+
+                <!--Medical Info-->
+                <div class="row card-panel hoverable">
+                    <h5 class="teal-text text-lighten-3">Medical info</h5>
+                    <hr class="divider teal-text">
+                    <div class="row">
+                        <p></p>
+                    </div>
+                    <form class="col s12 white teal-text text-lighten-3" name="medicalInfo">
+                        <div class="input-field col s12">
+                            <input type="number" class="validate" name="insuranceNumber" id="insuranceNumber" ng-model="medicalProfile.medicalInfo.insuranceNumber">
+                            <label for="insuranceNumber" data-error="Please type a valid number">Insurance Number</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea class="materialize-textarea" id="allergies" ng-model="medicalProfile.medicalInfo.allergies"></textarea>
+                            <label for="allergies">Allergies</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <span class="label">Upload your certificate</span><br>
+                            <input type="file" id="certificate" name="certificate" ng-model="medicalProfile.medicalInfo.certificate">
+                        </div>
+                        <div class="input-field col s6">
+                            <span class="label">Other files</span><br>
+                            <input type=file id="addFile" name="addFile" ng-model="medicalProfile.medicalInfo.addFile">
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea class="materialize-textarea" id="allergies" ng-model="medicalProfile.medicalInfo.notes"></textarea>
+                            <label for="allergies">Notes</label>
+                        </div>
+                    </form>
+                </div>
+
+                <!--Additional questions-->
+                <div class="row card-panel hoverable">
+                    <h5 class="teal-text text-lighten-3">Additional questions</h5>
+                    <hr class="divider teal-text">
+                    <div class="row">
+                        <p></p>
+                    </div>
+                    <form class="col s12 white teal-text text-lighten-3" name="additionalQuestions">
+                        <span class="label" ng-repeat="question in quote.questions">{{question}}</span>
+                        <textarea class="materialize-textarea" id="additionalQuestions" ng-model="medicalProfile.additionnalQuestions"></textarea>
+                    </form>
+                </div>
+
+                <div class="row right">
+                    <a class="btn teal white-texte waves-effect" ng-click="submitMedicalProfile()">Submit</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="medprofile">
-        <h3 class="teal-text text-lighten-2">Medical Profile</h3>
+    <!--Trip-->
+    <div id="trip">
+        <script>
+            $(document).ready(function(){
+              $('.collapsible').collapsible();
+            });
+        </script>
+        <div class="row">
+            <p></p>
+        </div>
+        <div class="row">
+            <div class="col s10 offset-s1">
+                <h3 class="teal-text text-lighten-3 weight-7"><i class="material-icons medium left">location_city</i>Marseille</h3>
+                <ul class="collapsible teal-text text-lighten-3" data-collapsible="expendable">
+                    <li>
+                        <div class="collapsible-header"><b>Hotel</b></div>
+                        <div class="collapsible-body">
+                            <ul class="collection">
+                                <li class="collection-item avatar">
+                                    <i class="material-icons circle teal teal-lighten-4">hotel</i>
+                                    <span class="title">Hotel name</span>
+                                        <p>Hotel description<br>
+                                        <i class="material-icons">star</i>
+                                        <i class="material-icons">star</i>
+                                        <i class="material-icons">star</i>
+                                        </p>
+                                    <a class="secondary-content btn teal white-text">Book</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><b>Flight</b></div>
+                        <div class="collapsible-body">
+                            <ul class="collection">
+                                <li class="collection-item">http://flight.links/wwc</li>
+                                <li class="collection-item">http://flight.links/wwc</li>
+                                <li class="collection-item">http://flight.links/wwc</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><b>Taxi</b></div>
+                        <div class="collapsible-body center">
+
+                            <p class="teal-text text-lighten-3">With We Care offers to its customers a practical taxi service at their arrival<br>
+                            <b>Take advantage of it, it's really simple</b></p>
+
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><b>Guide</b></div>
+                        <div class="collapsible-body center">
+                            <div class="row">
+                                <div class="col s10 offset-s1">
+                                    <span class="teal-text text-lighten-3 weight-7">Ask for a personnal guide</span><br><br>
+                                    <a class="btn teal white-text waves-effect center">More info</a>
+                                    <a class="btn teal white-text waves-effect center">Ask</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row right">
+            <a class="btn teal white-text waves-effect" ng-click="interventionTabSet(4)">Next</a>
+        </div>
+
+    </div>
+
+    <!--Advices-->
+    <div id="advices">
+        <div class="row">
+            <p></p>
+        </div>
+        <div class="row teal-text text-lighten-3">
+            <div class="col s10 offset-s1">
+                <div class="row card-panel hoverable">
+                    <h5>Advices</h5>
+                    <hr class="divider">
+                    <span class="teal-text text-lighten-3 weight-5">Advices from your doctor</span><br>
+                    <p class="framed">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu congue eros.
+                        Cras et nisl ultricies, iaculis lorem quis, dapibus neque. Proin eu maximus lorem.
+                        Suspendisse potenti. Fusce vel nulla varius, ornare diam in, luctus augue. In vel dapibus felis.
+                        Vestibulum suscipit purus in efficitur pulvinar.
+                        Morbi viverra purus sit amet justo luctus, ac commodo lacus ornare.
+                    </p>
+                </div>
+                <div class="row card-panel hoverable">
+                    <h5>Additional tests</h5>
+                    <hr class="divider">
+                    <span class="teal-text text-lighten-3 weight-5">List of required additional tests</span><br>
+                    <p class="framed">
+                        <ul>
+                            <li>Lorem</li>
+                            <li>Ipsum</li>
+                            <li>Dolor sit amet</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="row card-panel hoverable">
+                    <h5>Medecines</h5>
+                    <hr class="divider">
+                    <ul class="collection">
+                        <li class="collection-item">
+                            <span class="title weight-7">Aspirina</span>
+                            <p>Salicilic acid</p>
+                            <a class="btn teal white-text waves-effect">Download prescription</a>
+                        </li>
+                        <li class="collection-item">
+                            <span class="title weight-7">Aspirina</span>
+                            <p>Salicilic acid</p>
+                            <a class="btn teal white-text waves-effect">Download prescription</a>
+                        </li>
+                        <li class="collection-item">
+                            <span class="title weight-7">Aspirina</span>
+                            <p>Salicilic acid</p>
+                            <a class="btn teal white-text waves-effect">Download prescription</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row right">
+            <a class="btn teal white-text waves-effect" ng-click="interventionTabSet(5)">Next</a>
+        </div>
+    </div>
+
+    <!--Payment-->
+    <div id="payment">
+    </div>
+
+</div>
+
+
+<!-- MODALS -->
+<!--Modal for state of birth selection-->
+<div class="modal modal-fixed-footer seamlessModal" id="countryModal">
+    <div class="modal-content valign-wrapper white-text">
+        <div class="container">
+            <h3><i class="material-icons medium left">language</i>Select your country</h3>
+            <ul class="collection white-text">
+                <div class="scrollable-3">
+                    <li class="collection-item col s12 seamless valign-wrapper clickable waves-effect waves-light" ng-repeat="country in countries" ng-click="selectCountry(country)"></br>{{country}}<br></br></li>
+                </div>
+            </ul>
+            <br>
+            <span ng-show="ui.medicalProfile.countryModalOk">Selected: {{medicalProfile.state}}</span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn teal waves-effect white-text modal-action modal-close" ng-show="ui.medicalProfile.countryModalOk">Ok</button>
     </div>
 </div>
 
+<!--Modal for citizenship selection-->
+<div class="modal modal-fixed-footer seamlessModal" id="citizenModal">
+    <div class="modal-content valign-wrapper white-text">
+        <div class="container">
+            <h3><i class="material-icons medium left">language</i>Select your citizenship</h3>
+            <ul class="collection white-text">
+                <div class="scrollable-3">
+                    <li class="collection-item col s12 seamless valign-wrapper clickable waves-effect waves-light" ng-repeat="country in countries" ng-click="selectCitizenship(country)"></br>{{country}}<br></br></li>
+                </div>
+            </ul>
+            <br>
+            <span ng-show="ui.medicalProfile.citizenModalOk">Selected: {{medicalProfile.citizenship}}</span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn teal waves-effect white-text modal-action modal-close" ng-show="ui.medicalProfile.citizenModalOk">Ok</button>
+    </div>
+</div>
+
+<!--Modal for document type selection-->
+<div class="modal modal-fixed-footer seamlessModal" id="documentTypeModal">
+    <div class="modal-content valign-wrapper white-text">
+        <div class="container">
+            <h3><i class="material-icons medium left">language</i>Select document type</h3>
+            <ul class="collection white-text">
+                <div class="scrollable-3">
+                    <li class="collection-item col s12 seamless valign-wrapper clickable waves-effect waves-light" ng-repeat="type in documentTypes" ng-click="selectDocumentType(type)"></br>{{type}}<br></br></li>
+                </div>
+            </ul>
+            <br>
+            <span ng-show="ui.medicalProfile.documentTypeModalOk">Selected: {{medicalProfile.idDocument.type}}</span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn teal waves-effect white-text modal-action modal-close" ng-show="ui.medicalProfile.documentTypeModalOk">Ok</button>
+    </div>
+</div>
 
 <script>
 	$(document).ready(function(){

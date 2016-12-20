@@ -63,26 +63,72 @@ serv.factory('core',['$http',function($http){
                     price:5000,
                     specialty:'Heart surgeon',
                     motivation:'Best doctor around here',
-                    pic:'img/profile_pictures/trouillet.png'
-                },{
-                    name:'Trouillier',
-                    surname:'Maxime',
-                    price:5000,
+                    pic:'img/profile_pictures/trouillet.png',
+                    accepted : false,
+                    period:{
+                        date: 0,
+                        time : 0
+                    },
+                    interview:{
+                        booked : false,
+                        date : 0,
+                        time: 0
+                    }
+                },
+                {
+                    name:'Pierre',
+                    surname:'Jean',
+                    price:3000,
+                    specialty:'Plastic surgeon',
+                    motivation:'Best doctor around here',
+                    pic:'img/profile_pictures/trouillet.png',
+                    accepted : false,
+                    period:{
+                        date: 0,
+                        time : 0
+                    },
+                    interview:{
+                        booked : false,
+                        date : 0,
+                        time: 0
+                    }
+                },
+                {
+                    name:'Richard',
+                    surname:'Jack',
+                    price:7000,
                     specialty:'Heart surgeon',
-                    motivation:'Best doctor around here'
-                },{
-                    name:'Trouillier',
-                    surname:'Maxime',
-                    price:5000,
-                    specialty:'Heart surgeon',
-                    motivation:'Best doctor around here'
-                },{
-                    name:'Trouillier',
-                    surname:'Maxime',
-                    price:5000,
-                    specialty:'Heart surgeon',
-                    motivation:'Best doctor around here'
-                }
+                    motivation:'Best doctor around here',
+                    pic:'img/profile_pictures/trouillet.png',
+                    accepted : false,
+                    period:{
+                        date: 0,
+                        time : 0
+                    },
+                    interview:{
+                        booked : false,
+                        date : 0,
+                        time: 0
+                    }
+                },
+                {
+                    name:'Anderson',
+                    surname:'Eric',
+                    price:6000,
+                    specialty:'Neurosurgery',
+                    motivation:'Best doctor around here',
+                    pic:'img/profile_pictures/trouillet.png',
+                    accepted : false,
+                    period:{
+                        date: 0,
+                        time : 0
+                    },
+                    interview:{
+                        booked : false,
+                        date : 0,
+                        time: 0
+                    }
+                },
             ]
         }
     }

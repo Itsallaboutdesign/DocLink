@@ -8,6 +8,8 @@ ctrl.controller('LandingCtrl',['$state','$rootScope','$scope','core',function($s
     $scope.title = 'Vous êtes bien sur With We Care';
     $scope.isPatient = false;
     $scope.isDoctor = false;
+    $rootScope.landingDisplay++;
+
     //Affichage de la page clinics
     $scope.clinicsView = 'templates/views/clinics.list.html'; //url de la page à inclure
     $scope.currentClinic = {};
@@ -15,7 +17,7 @@ ctrl.controller('LandingCtrl',['$state','$rootScope','$scope','core',function($s
     $scope.request = {};
 
     ///INITIALISATION HORS DONNEES SERVEUR
-    $state.go('landing.main');
+    if($rootScope.landingDisplay === 1) $state.go('landing.main');
 
     //Fonction d'affichage
     $scope.goToMain = function(){

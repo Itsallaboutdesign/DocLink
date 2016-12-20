@@ -2,7 +2,7 @@ ctrl.controller('AuthCtrl',['$http','$scope','$rootScope','$state','signin','log
                             function($http,$scope,$rootScope,$state,signin,login){
 
     //Initialisation
-    $scope.user = {
+    $rootScope.currentUser = {
         name : 'Test',
         surname :'Test',
         email : 'test@test.com',
@@ -14,7 +14,7 @@ ctrl.controller('AuthCtrl',['$http','$scope','$rootScope','$state','signin','log
     $scope.newUser = {
         sex : false
     };
-    
+
     if(!$rootScope.logged) $rootScope.currentUser = {}; //Testing purposes variable
     $rootScope.registeredUsers = [{
         name : 'Test',
