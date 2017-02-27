@@ -456,7 +456,13 @@ app.get('/getAllUsers',function(req,res){
         if(err) res.send(err);
         else res.json(users);
     });
+});
 
+app.get('/users/getNames',function(req,res){
+    User.find({},'name surname profile_pic',function(err,users){
+        if(err) res.send(err);
+        else res.json(users);
+    });
 });
 
 //Get One User
@@ -883,6 +889,57 @@ app.post('/surgeries/delete/all',function(req,res){
     Surgery.remove(function(err,surgeries){
         if(err) res.send(err);
         else res.json(surgeries);
+    });
+});
+
+//CHAT MANAGEMENT
+
+//Create a thread and return all personnal threads
+app.post('/chat/thread/new',function(req,res){
+    Thread.create(req.body.thread,function(err,thread){
+        if(err) res.send(err);
+        else Thread.find({participants: {$in : { id: req.body.user_id }}},function(err,threads){
+            if(err) res.send(err);
+            else res.json(threads);
+        });
+    });
+});
+
+//Delete a thread and return all personnal threads
+app.post('/chat/thread/delete',function(req,res){
+    Thread.remove({_id: req.body._id},function(err,thread){
+        if(err) res.send(err);
+        else Thread.find({participants: {$in : { id: req.body.user_id }}},function(err,threads){
+            if(err) res.send(err);
+            else res.json(threads);
+        });
+    });
+});
+
+//Fetch user's threads
+app.post('/chat/thread/mine',function(req,res){
+    Thread.find({participants: {$in : { id: req.body._id }}},function(err,threads){
+        if(err) res.send(err);
+        else res.json(threads);
+    });
+});
+
+//Update thread (add message)
+app.post('/chat/thread/update/msg',function(req,res){
+    Thread.findOneAndUpdate({_id: req.body._id},{
+        $set : {messages: req.body.messages}
+    },{returnNewDocument:true, new:true},function(err,thread){
+        if(err) res.send(err);
+        else res.json(thread);
+    });
+});
+
+app.post('/chat/thread/update/party',function(req,res){
+    Thread.findOneAndUpdate({_id: req.body._id},{
+        $set : {participants: req.body.participants}
+    },{returnNewDocument:true, new:true},function(err,thread){
+        if(err) res.send(err);
+        else res.json(thread);
     });
 });
 

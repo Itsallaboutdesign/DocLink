@@ -64,17 +64,7 @@ Date.prototype.getWeek = function() { //1 - 53
 }
 
 app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
-    $stateProvider.state('home',{
-        url:'',
-        templateUrl:'templates/home.html',
-        controller:'MainCtrl',
-        params:{
-            name:'home',
-            public: false,
-            display:'Accueil'
-        }
-    })
-    .state('dashboard',{
+    $stateProvider.state('dashboard',{
         url:'/dashboard',
         templateUrl:'templates/dashboard.html',
         controller:'DashboardCtrl',

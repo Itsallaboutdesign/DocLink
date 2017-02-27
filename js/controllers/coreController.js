@@ -6,7 +6,7 @@ ctrl.controller('MainCtrl',['$state','$scope','$rootScope','signin','core','$int
     console.log('Main Ctrl');
 
     $state.go('landing.main');
-
+    $rootScope.loaded = false;
     //Initialisation générale
     $rootScope.logged = false;
     $rootScope.connected = true;
@@ -139,7 +139,7 @@ ctrl.controller('MainCtrl',['$state','$scope','$rootScope','signin','core','$int
     //Gestion des états
     $rootScope.$on('$stateChangeStart',function(event,toState,fromState,toParams,fromParams){
         console.log('state change: '+fromParams.name +' -> '+toParams.name);
-        $rootScope.currentUser.state_changes++;
+        if($rootScope.logged) $rootScope.currentUser.state_changes++;
         signin.updateUser($rootScope.currentUser).then(function updateUserSuccess(data){console.log(data.data)},function updateUserError(data){console.log(data.data)})
         if(!toState.params.public && !$rootScope.logged){
             event.preventDefault();
@@ -163,5 +163,5 @@ ctrl.controller('MainCtrl',['$state','$scope','$rootScope','signin','core','$int
             })
     },2000);
 
-
+    $rootScope.loaded = true;
 }]);

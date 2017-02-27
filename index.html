@@ -34,6 +34,53 @@
 				<ui-view></ui-view>
 			</div>
 		</main>
+		<div class="row teal lighten-4 valign-wrapper" style="position:absolute; height:100%; width:100%; top:0; left:0; z-index:200" ng-if="!loaded">
+			<div class="col s12">
+				<div class="valign center">
+					<h5 class="teal-text text-darken-2">WithWeCare</h5>
+					<div class="progress col s6 offset-s3">
+						<div class="indeterminate"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--FAB-->
+		<!-- <div class="fixed-action-btn" style="left:25px;z-index:20" ng-click="chat=true" ng-show="!chat && logged">
+		   <a class="btn btn-large teal">
+		     <i class="large material-icons left">question_answer</i>CHAT
+		   </a>
+		 </div> -->
+
+		 <!--Chat-->
+		 <!-- <div class="card teal darken-4 white-text hide-on-med-and-down" ng-show="chat"
+		 style="position: absolute; z-index:10; left :25px;bottom:25px; width:20vw; max-height:40vh;"
+		 ng-controller="ChatCtrl" ng-if="logged">
+			 <div class="card-content" ng-if="discussionMode">
+				 <span class="card-title">
+					{{thread.surname}} {{thread.name}}
+				</span>
+				<div class="row teal lighten-4">
+					<div class="input-field col s12">
+						<input type="text" id="message" name="message" placeholder="Message">
+					</div>
+				</div>
+			</div>
+			<div class="card-content" ng-if="newThreadMode">
+				<span class="weight-7 teal-text text-lighten-4" ng-repeat="party in participants">{{thread.participants.surname}} </span>
+				<ul class="collection">
+					<li class="collection-item" ng-repeat="usr in users" ng-click="toggleUser">{{usr.surname}} {{usr.name}}</li>
+				</ul>
+			</div>
+			<div class="card-content" ng-if="!discussionMode && !newThreadMode">
+				<span class="card-title" ng-if="!threads">Create a discussion!</span>
+				<p>Click on new</p>
+			</div>
+			<div class="card-action teal-text text-lighten-3">
+				<a class="teal-text text-lighten-4" ng-if="!threads"><i class="material-icons">new</i>New</a>
+				<a class="teal-text text-lighten-4" ng-repeat="thread in threads" href="#">{{thread.name}}</a>
+			</div>
+		</div> -->
 
 		<script type="text/javascript" src="http://82.223.10.127:8443/socket.io/socket.io.js"></script>
 
@@ -61,6 +108,7 @@
 		<script type="text/javascript" src="js/controllers/dashboardController.js"></script>
 		<script type="text/javascript" src="js/controllers/adminController.js"></script>
 		<script type="text/javascript" src="js/controllers/forumController.js"></script>
+		<script type="text/javascript" src="js/controllers/chatController.js"></script>
 
 		<!--Core Angular Script-->
 		<script type="text/javascript" src="js/core.js"></script>

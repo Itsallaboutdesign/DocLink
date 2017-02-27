@@ -1,5 +1,6 @@
 <!-- Dashboard Interventions view-->
-<div class="container">
+<div class="row">
+    <div class="col s12 m10 offset-m1">
 
     <ul class="tabs hoverable z-depth-1 teal-lighten-3" style="border-radius: 50px;">
         <li class="tab" id="tab1"><a href="#doctors">Doctors</a></li>
@@ -135,7 +136,7 @@
                         <option value="PED">Pediatry</option> -->
                     </select>
                 </div>
-                <button class="btn btn-large teal" ng-if="quotesInStack"></button>
+                <button class="btn btn-large teal" ng-if="quotesInStack" ng-click="interventionTabSet(2)">Next</button>
             </form>
           </div>
             <div class="col s12 l9 scrollable-6">
@@ -177,6 +178,15 @@
     </div>
 
 
+    <!--Doctor selection-->
+    <div id="docselect">
+    </div>
+
+    <!--Info for quotes-->
+    <div id="quotes">
+    </div>
+
+</div>
 </div>
 <ng-include src="'templates/snippets/footer.html'"></ng-include>
 

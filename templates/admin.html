@@ -30,10 +30,15 @@
         <nav>
             <div class="nav-wrapper">
                 <a class="brand-logo teal-text hide-on-med-and-down" href="#">Administration Panel</a>
-                <ul class="right">
+                <ul class="right hide-on-small-only">
                     <li><a class="btn btn-flat teal-text text-lighten-2 waves-effect" ng-click="goTo('landing.main')"><i class="material-icons">home</i>Home</a></li>
                     <li><a class="btn btn-flat teal-text text-lighten-2 waves-effect" ng-click="refresh()"><i class="material-icons">refresh</i>Refresh</a></li>
                     <li><a class="btn btn-flat red-text text-lighten-2 waves-effect" ng-click="logout()" ng-controller="AuthCtrl"><i class="material-icons">power_settings_new</i>Logout</a></li>
+                </ul>
+                <ul class="right hide-on-med-and-up">
+                    <li><a class="teal-text text-lighten-2 waves-effect" ng-click="goTo('landing.main')"><i class="material-icons">home</i></a></li>
+                    <li><a class="teal-text text-lighten-2 waves-effect" ng-click="refresh()"><i class="material-icons">refresh</i></a></li>
+                    <li><a class="red-text text-lighten-2 waves-effect" ng-click="logout()" ng-controller="AuthCtrl"><i class="material-icons">power_settings_new</i></a></li>
                 </ul>
             </div>
         </nav>
@@ -57,8 +62,18 @@
     <!--USERS-->
 
     <div class="row" id="users">
-        <div class="col s3">
+        <div class="col m3 hide-on-small-only">
             <ul class="collection scrollable-4">
+                <li class="collection-item teal lighten-2 white-text">{{users.length}} users in database</li>
+                <li class="collection-item" ng-repeat="user in users | orderBy : '-surname' : true" ng-click="displayUser(user)" ng-show="user.name !='' && user.name ">
+                    <b>{{user.surname}} {{user.name}}</b><br>
+                    {{user.email}}
+                </li>
+            </ul>
+            <button class="btn teal lighten-2 white-text col s12" ng-click="addUserMode()"><i class="material-icons left">add</i>Add User</button>
+        </div>
+        <div class="col s12 hide-med-and-up" ng-if="!state.displayUser && !state.addingUser">
+            <ul class="collection scrollable-3">
                 <li class="collection-item teal lighten-2 white-text">{{users.length}} users in database</li>
                 <li class="collection-item" ng-repeat="user in users | orderBy : '-surname' : true" ng-click="displayUser(user)" ng-show="user.name !='' && user.name ">
                     <b>{{user.surname}} {{user.name}}</b><br>
@@ -70,11 +85,16 @@
 
         <button class="btn col s8 teal lighten-2" ng-click="addUserMode()" ng-show="!users.length && !state.addingUser && !state.displayUser ">Add user</button>
 
-        <div class="col s9" ng-show="state.displayUser || state.addingUser">
+        <div class="col s12 m9" ng-show="state.displayUser || state.addingUser">
             <div class="row fixed">
-                <div class="col s8">
+                <div class="col s8 hide-on-small-only">
                     <h3 class="teal-text text-lighten-2" ng-show="state.addingUser">Adding a User</h3>
                     <h3 class="teal-text text-lighten-2" ng-show="state.displayUser">{{state.currentUser.surname}} {{state.currentUser.name}}</h3>
+                    <h5 class="red-text text-lighten-2 weight-7" ng-show="state.currentUser.user_type && state.displayUser">Doctor ID : {{state.currentUser._id}}</h5>
+                </div>
+                <div class="col s8 hide-on-med-and-up">
+                    <h5 class="teal-text text-lighten-2" ng-show="state.addingUser">Adding a User</h5>
+                    <h5 class="teal-text text-lighten-2" ng-show="state.displayUser">{{state.currentUser.surname}} {{state.currentUser.name}}</h5>
                     <h5 class="red-text text-lighten-2 weight-7" ng-show="state.currentUser.user_type && state.displayUser">Doctor ID : {{state.currentUser._id}}</h5>
                 </div>
                 <div class="col s4 valign-wrapper right">
@@ -227,8 +247,18 @@
     <!--QUOTES-->
 
     <div class="row" id="quotes">
-        <div class="col s3">
+        <div class="col s3 hide-on-small-only">
             <ul class="collection scrollable-4">
+                <li class="collection-item teal lighten-2 white-text">{{quotes.length}} quotes in database</li>
+                <li class="collection-item" ng-repeat="quote in quotes" ng-click="displayQuote(quote)">
+                    <b>{{quote.surname}} {{quote.name}}</b><br>
+                    {{quote.surgery.name}}
+                </li>
+            </ul>
+            <button class="btn teal lighten-2 white-text col s12" ng-click="addQuoteMode()"><i class="material-icons left">add</i>Add Quote</button>
+        </div>
+        <div class="col s12 hide-on-med-and-up" ng-if="!state.displayQuote && !state.addingQuote">
+            <ul class="collection scrollable-3">
                 <li class="collection-item teal lighten-2 white-text">{{quotes.length}} quotes in database</li>
                 <li class="collection-item" ng-repeat="quote in quotes" ng-click="displayQuote(quote)">
                     <b>{{quote.surname}} {{quote.name}}</b><br>
@@ -240,11 +270,15 @@
 
         <button class="btn col s8 teal lighten-2" ng-click="addQuoteMode()" ng-show="!quotes.length && !state.addingQuote && !state.displayQuote">Add quote</button>
 
-        <div class="col s9" ng-show="state.displayQuote || state.addingQuote">
+        <div class="col s12 m9" ng-show="state.displayQuote || state.addingQuote">
             <div class="row">
-                <div class="col s8">
+                <div class="col s8 hide-on-small-only">
                     <h3 class="teal-text text-lighten-2" ng-show="state.addingQuote">Adding a Quote</h3>
                     <h3 class="teal-text text-lighten-2" ng-show="state.displayQuote">{{state.currentQuote.surname}} {{state.currentQuote.name}}</h3>
+                </div>
+                <div class="col s8 hide-on-med-and-up">
+                    <h5 class="teal-text text-lighten-2" ng-show="state.addingQuote">Adding a Quote</h5>
+                    <h5 class="teal-text text-lighten-2" ng-show="state.displayQuote">{{state.currentQuote.surname}} {{state.currentQuote.name}}</h5>
                 </div>
                 <div class="col s4 valign-wrapper right">
                     <button class="btn red lighten-2 white-text valign right" ng-click="exitQuote()"><i class="material-icons">close</i></button>
@@ -318,7 +352,17 @@
     <!-- Clinics -->
 
     <div class="row" id="clinics">
-        <div class="col s3">
+        <div class="col s3 hide-on-small-only">
+            <ul class="collection scrollable-4">
+                <li class="collection-item teal lighten-2 white-text">{{clinics.length}} clinics in database</li>
+                <li class="collection-item" ng-repeat="clinic in clinics" ng-click="displayClinic(clinic)">
+                    <b>{{clinic.name}}</b><br>
+                    {{clinic.address.country.name}}
+                </li>
+            </ul>
+            <button class="btn teal lighten-2 white-text col s12" ng-click="addClinicMode()"><i class="material-icons left">add</i>Add Clinic</button>
+        </div>
+        <div class="col s12 hide-on-med-and-up" ng-if="!state.displayClinic && !state.addingClinic">
             <ul class="collection scrollable-4">
                 <li class="collection-item teal lighten-2 white-text">{{clinics.length}} clinics in database</li>
                 <li class="collection-item" ng-repeat="clinic in clinics" ng-click="displayClinic(clinic)">
@@ -331,11 +375,15 @@
 
         <button class="btn col s8 teal lighten-2" ng-click="addClinicMode()" ng-show="!clinics.length && !state.addingClinic && !state.displayClinic">Add clinic</button>
 
-        <div class="col s9" ng-show="state.displayClinic || state.addingClinic">
+        <div class="col s12 m9" ng-show="state.displayClinic || state.addingClinic">
             <div class="row">
-                <div class="col s8">
+                <div class="col s8 hide-on-small-only">
                     <h3 class="teal-text text-lighten-2" ng-show="state.addingClinic">Adding a Clinic</h3>
                     <h3 class="teal-text text-lighten-2" ng-show="state.displayClinic">{{state.currentClinic.name}}</h3>
+                </div>
+                <div class="col s8 hide-on-med-and-up">
+                    <h5 class="teal-text text-lighten-2" ng-show="state.addingClinic">Adding a Clinic</h3>
+                    <h5 class="teal-text text-lighten-2" ng-show="state.displayClinic">{{state.currentClinic.name}}</h3>
                 </div>
                 <div class="col s4 valign-wrapper right">
                     <button class="btn red lighten-2 white-text valign right" ng-click="exit()"><i class="material-icons">close</i></button>
@@ -436,7 +484,16 @@
     <!--Countries-->
 
     <div class="row" id="countries">
-        <div class="col s3">
+        <div class="col s3 hide-on-small-only">
+            <ul class="collection scrollable-4">
+                <li class="collection-item teal lighten-2 white-text">{{countries.length}} countries in database</li>
+                <li class="collection-item" ng-repeat="country in countries" ng-click="displayCountry(country)">
+                    <b>{{country.name}}</b><br>
+                </li>
+            </ul>
+            <button class="btn teal lighten-2 white-text col s12" ng-click="addCountryMode()"><i class="material-icons left">add</i>Add Country</button>
+        </div>
+        <div class="col s12 hide-on-med-and-up" ng-if="!state.displayCountry && !state.addingCountry">
             <ul class="collection scrollable-4">
                 <li class="collection-item teal lighten-2 white-text">{{countries.length}} countries in database</li>
                 <li class="collection-item" ng-repeat="country in countries" ng-click="displayCountry(country)">
@@ -448,7 +505,7 @@
 
         <button class="btn col s8 teal lighten-2" ng-click="addCountryMode()" ng-show="!countries.length && !state.addingCountry && !state.displayCountry">Add country</button>
 
-        <div class="col s9" ng-show="state.displayCountry || state.addingCountry">
+        <div class="col s12 m9" ng-show="state.displayCountry || state.addingCountry">
             <div class="row">
                 <div class="col s8">
                     <h3 class="teal-text text-lighten-2" ng-show="state.addingCountry">Adding a Country</h3>
@@ -505,7 +562,7 @@
 
     <!-- Surgeries-->
     <div class="row" id="surgeries">
-        <div class="col s3">
+        <div class="col s3 hide-on-small-only">
             <ul class="collection scrollable-4">
                 <li class="collection-item teal lighten-2 white-text">{{surgeries.length}} surgeries in database</li>
                 <li class="collection-item" ng-repeat="surgery in surgeries" ng-click="displaySurgery(surgery)">
@@ -516,11 +573,26 @@
             <button class="btn teal lighten-2 white-text col s12" ng-click="addSurgeryMode()"><i class="material-icons left">add</i>Add Surgery</button>
             <button class="btn teal lighten-1 white-text col s12" data-target="infoSurgery"><i class="material-icons left">info</i>Surgery Codes Convention</button>
         </div>
-        <div class="col s9" ng-show="state.displaySurgery || state.addingSurgery">
+        <div class="col s12 hide-on-med-and-up" ng-if="!state.displaySurgery && !state.addingSurgery">
+            <ul class="collection scrollable-3">
+                <li class="collection-item teal lighten-2 white-text">{{surgeries.length}} surgeries in database</li>
+                <li class="collection-item" ng-repeat="surgery in surgeries" ng-click="displaySurgery(surgery)">
+                    <b>{{surgery.name}}</b><br>
+                    {{surgery.code}}
+                </li>
+            </ul>
+            <button class="btn teal lighten-2 white-text col s12" ng-click="addSurgeryMode()"><i class="material-icons left">add</i>Add Surgery</button>
+            <button class="btn teal lighten-1 white-text col s12" data-target="infoSurgery"><i class="material-icons left">info</i>Surgery Codes Convention</button>
+        </div>
+        <div class="col s12 m9" ng-show="state.displaySurgery || state.addingSurgery">
             <div class="row">
                 <div class="col s8">
                     <h3 class="teal-text text-lighten-2" ng-show="state.addingSurgery">Adding a Surgery</h3>
                     <h3 class="teal-text text-lighten-2" ng-show="state.displaySurgery">{{state.currentSurgery.name}}</h3>
+                </div>
+                <div class="col s8 hide-on-med-and-up">
+                    <h5 class="teal-text text-lighten-2" ng-show="state.addingSurgery">Adding a Surgery</h5>
+                    <h5 class="teal-text text-lighten-2" ng-show="state.displaySurgery">{{state.currentSurgery.name}}</h5>
                 </div>
                 <div class="col s4 valign-wrapper right">
                     <button class="btn red lighten-2 white-text valign right" ng-click="exit()"><i class="material-icons">close</i></button>

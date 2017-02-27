@@ -1,7 +1,8 @@
 //LANDING PAGE CONTROLLER
-ctrl.controller('LandingCtrl',['$state','$rootScope','$scope','core','quotes','data',function($state,$rootScope,$scope,core,quotes,data){
+ctrl.controller('LandingCtrl',['$state','$stateParams','$rootScope','$scope','core','quotes','data',function($state,$stateParams,$rootScope,$scope,core,quotes,data){
 
-
+    $state.go('landing.main');
+    $scope.tabState = 1;
     ///INITIALISATION GENERALE
     init = function(){
         console.log('Landing Initialization');
@@ -28,7 +29,7 @@ ctrl.controller('LandingCtrl',['$state','$rootScope','$scope','core','quotes','d
                                  if($rootScope.currentUser.selected_quotes[j]._id === $scope.quotes[i]._id){
                                      $scope.quotes[i].added = true;
                                      $scope.quotesInStack++;
-                                 }    
+                                 }
                              }
                          }
                      }
@@ -66,14 +67,14 @@ ctrl.controller('LandingCtrl',['$state','$rootScope','$scope','core','quotes','d
 
     //Switches the current tab
     $scope.interventionTabSet = function(tabNumber){
-        tab_id = "quotes";
+        tab_id = "tab1";
         $scope.interventionTabActivate(tabNumber);
         switch(tabNumber){
-            case 1: tab_id = "research"; break;
-            case 2: tab_id = "doctors"; break;
-            case 3: tab_id = "docselect"; break;
-            case 4: tab_id = "quotes"; break;
-            default: tab_id = "doctors"; break;
+            case 1: tab_id = "tab1"; break;
+            case 2: tab_id = "tab2"; break;
+            case 3: tab_id = "tab3"; break;
+            case 4: tab_id = "tab4"; break;
+            default: tab_id = "tab1"; break;
         }
         $('ul.tabs').tabs('select_tab', tab_id);
     }
@@ -84,15 +85,15 @@ ctrl.controller('LandingCtrl',['$state','$rootScope','$scope','core','quotes','d
             case 2: tab_id = "tab2"; break;
             case 3: tab_id = "tab3"; break;
             case 4: tab_id = "tab4"; break;
-            default: tab_id = "tab2"; break;
+            default: tab_id = "tab1"; break;
         }
         document.getElementById(tab_id).className = "tab";
     }
 
     //Changes the tab state and calls the switching tab method
     $scope.interventionTabState = function(){
-        $scope.ui.intervention.tabState ++;
-        $scope.interventionTabActivate($scope.ui.intervention.tabState);
+        $scope.tabState ++;
+        $scope.interventionTabActivate($scope.tabState);
     }
 
 

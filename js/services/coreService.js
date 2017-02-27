@@ -33,6 +33,12 @@ serv.factory('quotes',['$http',function($http){
         },
         deleteAllQuotes : function(){
             return $http.post(serverUrl+'/quotes/delete/all');
+        },
+        hitOnQuote : function(quote){
+            return $http.post(serverUrl+'/quotes/hits',quote);
+        },
+        setInterview : function(quote){
+            return $http.post(serverUrl+'/quotes/interviews',quote);
         }
     }
 }]);
@@ -139,6 +145,27 @@ serv.factory('data',['$http',function($http){
         //User management
         selectedQuotes : function(id, quotes){
             return $http.post(serverUrl+'/user/quotes',{_id : id, selected_quotes : quotes});
+        },
+
+        //Chat management
+        createThread : function(user, thread){
+            return $http.post(serverUrl+'/chat/thread/new',{user_id: user._id, thread: thread});
+        },
+        deleteThread : function(thread){
+            return $http.post(serverUrl+'/chat/thread/delete',{_id: thread._id});
+        },
+        myThreads : function(user){
+            return $http.post(serverUrl+'/chat/thread/mine',{_id: user._id});
+        },
+        createMessage : function(thread){
+            return $http.post(serverUrl+'/chat/thread/update/msg',thread);
+        },
+        threadParty : function(thread){
+            return $http.post(serverUrl+'/chat/thread/update/party',thread);
+        },
+        getNames : function(){
+            return $http.get(serverUrl+'/users/getNames');
         }
+
     }
 }]);

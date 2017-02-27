@@ -23,17 +23,17 @@
         <h3 class="teal-text text-lighten-3 weight-7" ng-if="forumSearch">Search results:</h3>
         <div ng-class="{'col s12 m10 offset-m1 l8 offset-l2': !forumSearch,'col s6': forumSearch}">
             <h5 class="teal-text text-lighten-2 center">Articles</h5>
-            <div class="row threadStaff teal lighten-2 clickable" ng-repeat="thread in state.threads | filter : forumSearch as results" ng-if="thread.staff" ng-style="{'background-image': 'url('+thread.img+')'}">
+            <div class="row threadStaff teal lighten-4 clickable" ng-repeat="thread in state.threads | filter : forumSearch as results" ng-if="thread.staff" ng-style="{'background-image': 'url('+thread.img+')'}">
                 <div ng-class="{'row bordered-dark white-text':true,'white-text weight-8 text-shadow-1': thread.img }">
                     <div class="col s2">
                         <button class="btn red lighten-2 waves-effect" ng-click="deleteThread(thread)" ng-if="thread.author_email === currentUser.email"><i class="material-icons">delete</i></button><br>
                     </div>
-                    <div class="col s8" ng-click="displayThread(thread)">
+                    <div class="col s7" ng-click="displayThread(thread)">
                         <h5 ng-class="{'weight-5':!thread.img,'weight-8':thread.img}">{{thread.title}}</h5>
                         <p>By: {{thread.author_name}} {{thread.author_surname}}<br>
                         Theme: {{thread.topic}}</p>
                     </div>
-                    <div class="col s2 hide-on-small-only">
+                    <div class="col s3 hide-on-small-only">
                         <p><b>Last edit</b><br>{{dateHourDisplay(thread.last_modification)}}</p>
                     </div>
                 </div>
@@ -50,12 +50,12 @@
                     <div class="col s2">
                         <button class="btn red lighten-2 waves-effect" ng-click="deleteThread(thread)" ng-if="thread.author_email === currentUser.email"><i class="material-icons">delete</i></button><br>
                     </div>
-                    <div class="col s8" ng-click="displayThread(thread)">
+                    <div class="col s7" ng-click="displayThread(thread)">
                         <h5 class="weight-5">{{thread.title}}</h5>
                         <p>By: {{thread.author_name}} {{thread.author_surname}}<br>
                         Theme: {{thread.topic}}</p>
                     </div>
-                    <div class="col s2 hide-on-small-only">
+                    <div class="col s3 hide-on-small-only">
                         <p><b>Last edit</b><br>{{dateHourDisplay(thread.last_modification)}}</p>
                     </div>
                 </div>
