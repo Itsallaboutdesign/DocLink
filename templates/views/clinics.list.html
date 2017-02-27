@@ -5,7 +5,8 @@
     <li class="collection-item" ng-repeat="clinic in clinics | filter: clinicSearch as filtered">
             <span class="weight-7">{{clinic.name}}</span><br>
             <p class="weight-3">{{clinic.type}}<br>
-                <i class="tiny material-icons left">location_on</i>{{clinic.location}}<br>
+                <i class="tiny material-icons left">location_on</i>{{clinic.address.number}}, {{clinic.address.street}} -
+                {{clinic.address.zip}} {{currentClinic.address.city}} {{clinic.address.country.name}}<br>
                 <i class="tiny material-icons left">phone</i>{{clinic.phone}}
             </p>
             <a class="btn teal white-text waves-effect left" ng-click="clinicInfo(clinic)">Info</a>

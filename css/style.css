@@ -10,8 +10,28 @@ html,body{
 	display:none;
 }
 nav{
-	height:300px;
+	background-color:white;
 }
+.landingnav{
+	height:150px;
+	background-color:white;
+	text-align: center;
+}
+@media only screen and (max-width:993px){
+	.landingnav{
+		height:65px;
+		background-color:white;
+	}
+}
+.landingnav-fixed{
+	height:65px;
+	background-color:white;
+	text-align: center;
+	position: fixed;
+	top:0;
+	z-index:5;
+}
+
 .dashnav{
 	z-index:1;
 	height:75px !important;
@@ -24,6 +44,12 @@ nav{
 	height:100vh;
 	z-index:0;
 	color:red;
+}
+
+.logo{
+	margin-top:5px;
+	height: 75px;
+	width: 75px;
 }
 
 /*
@@ -55,6 +81,9 @@ HELPERS
 }
 .weight-8{
 	font-weight:800;
+}
+.text-shadow-1{
+	text-shadow: 0px 0px 5px black;
 }
 .padding-min{
 	padding-left:2.5%;
@@ -218,6 +247,9 @@ HELPERS
 	border: 0.5px solid rgba(255,255,255,0.5);
 	border-radius:2px;
 }
+.border-radius-5{
+	border-radius: 5px;
+}
 .rounded{
 	border-radius: 50%;
 	height: 100%;
@@ -244,9 +276,9 @@ HELPERS
 	text-align:center;
 }
 .commercial{
-	min-height:300px;
+	min-height:200px;
 	height:auto;
-	padding-top:10%;
+	padding-top:5%;
 	padding-bottom:10%;
 }
 .process{
@@ -303,8 +335,13 @@ select{
 	margin-top:50px;
 }
 .menu > li > a{
-	font-size:2vw;
-	color:#ef9a9a;
+	font-size:1.5vw;
+	margin-left: 1.5vw;
+	margin-right: 1.5vw;
+	color:#4DB6AC;
+}
+.landingnav-fixed .menu{
+	margin-top:0;
 }
 .card-panel{
 	border-radius:5px;
@@ -341,6 +378,10 @@ li > .tab{
 .seamless{
 	background-color:rgba(0,0,0,0) !important;
 }
+.framed{
+	border: 0.5px solid rgb(200,200,200);
+}
+
 
 /*FOOTER*/
 footer{
@@ -354,17 +395,33 @@ footer{
 	padding-left:50px;
 	font-size:20px;
 	font-weight:400;
+	height:450px;
 }
 .footerMenu{
 	margin-bottom:50px;
 }
 .footerMenu > li{
 	display:inline-block;
-	margin-right:45px;
-	font-size:28px;
+	margin-right:1.5vw;
+	font-size:1.5vw;
+}
+@media only screen and (max-width:992px){
+	.footerMenu > li{
+		font-size: 16px;
+	}
+}
+@media only screen and (max-width:620px){
+	.footerMenu > li{
+		font-size: 14px;
+	}
 }
 .footerMenu > li > a{
 	color:white
+}
+.footerText{
+	font-size: 18px;
+	height: 200px;
+	overflow: scroll;
 }
 .social{
 	margin-top:100px;
@@ -487,6 +544,27 @@ MODALS
 	background-color:rgba(0,0,0,0.5) !important;
 }
 
+/*
+
+FORUM
+-----
+
+*/
+
+.threadTitle{
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	height:75px;
+	text-align:center;
+}
+
+.threadBody{
+	border-left:1px solid #4DB6AC;
+}
+
+.threadStaff{
+	border-radius: 5px;
+}
 /*
 
 ANIMATIONS

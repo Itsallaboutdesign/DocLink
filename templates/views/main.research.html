@@ -1,0 +1,302 @@
+<!-- Dashboard Interventions view-->
+<div class="container">
+
+    <ul class="tabs hoverable z-depth-1 teal-lighten-3" style="border-radius: 50px;">
+        <li class="tab" id="tab1"><a href="#doctors">Doctors</a></li>
+        <li class="tab disabled teal-text text-lighten-5" id="tab2"><a href="#docselect">Doctors Selection</a></li>
+        <li class="tab disabled teal-text text-lighten-5" id="tab3"><a href="#quotes">Info for Quotes</a></li>
+    </ul>
+
+    <!--Quotes-->
+    <div id="doctors">
+        <div class="row">
+            <p></p>
+        </div>
+        <div class="row hide-on-large-only">
+            <form name="smallForm" novalidate>
+              <div class="input-field col s6">
+                  <span class="label">Price ({{searchInput.currency}}) < {{searchInput.price}} {{searchInput.currency}}</span></br>
+                  <input type="range" id="range" max="20000" min="300" ng-model="searchInput.price"/>
+                  </br>
+              </div>
+              <div class="input-field col s6">
+                  <select class="teal-text" ng-model="searchInput.currency">
+                      <option value="" disabled selected>Currency</option>
+                       <option value="">All</option>
+                      <option value="EUR">Euro (EUR)</option>
+                      <option value="GBP">Pound (GBP)</option>
+                      <option value="CHF">Franc Suisse (CHF)</option>
+                      <option value="USD">US Dollar (USD)</option>
+                  </select>
+              </div>
+              <div class="input-field col s4">
+                  <select class="teal-text" ng-model="searchInput.country.name">
+                      <option value="" disabled selected>Country</option>
+                       <option value="">All</option>
+                      <option value="France">France</option>
+                      <option value="Morocco">Morocco</option>
+                      <option value="Tunisia">Tunisia</option>
+                      <option value="Spain">Spain</option>
+                      <option value="Hungary">Hungary</option>
+                      <option value="Portugal">Portugal</option>
+                      <option value="Belgium">Belgium</option>
+                      <option value="Turkey">Turkey</option>
+                      <option value="India">India</option>
+                  </select>
+              </div>
+              <div class="input-field col s4">
+                  <select class="teal-text" ng-model="searchInput.city">
+                      <option value="" disabled selected>City</option>
+                      <option value="">All</option>
+                      <option value="Paris">Paris</option>
+                      <option value="Nice">Nice</option>
+                      <option value="Lyon">Lyon</option>
+                      <option value="Marseille">Marseille</option>
+                      <option value="Dieppe">Dieppe</option>
+                  </select>
+              </div>
+            <div class="input-field col s4">
+                <select class="teal-text" ng-model="searchInput.surgery.code">
+                    <option value="" disabled selected>service</option>
+                     <option value="">All</option>
+                    <option value="DNT">Dentistry</option>
+                    <option value="HRT">Cardiology</option>
+                    <option value="HAR">Hair</option>
+                    <option value="OPT">Ophtalmology</option>
+                    <option value="FIV">InVitro Fertility</option>
+                    <option value="POD">Podology</option>
+                    <option value="CAN">Cancerology</option>
+                    <option value="PLS">Plastic Surgery</option>
+                <!--    <option value="RDO">Radiology</option>
+                    <option value="OTH">Orthopedia</option>
+                    <option value="PED">Pediatry</option> -->
+                </select>
+            </div>
+        </form>
+        </div>
+        <div class="row">
+            <div class="col l3 scrollable-8 hide-on-med-and-down">
+                <form name="landingForm" novalidate>
+                  <div class="input-field col s10">
+                      <span class="label">Price ({{searchInput.currency}}) < {{searchInput.price}} {{searchInput.currency}}</span></br>
+                      <input type="range" id="rangeSmall" max="20000" min="300" ng-model="searchInput.price"/>
+                      </br>
+                  </div>
+                  <div class="input-field col s12">
+                      <select class="teal-text" ng-model="searchInput.currency">
+                          <option value="" disabled selected>Currency</option>
+                           <option value="">All</option>
+                          <option value="EUR">Euro (EUR)</option>
+                          <option value="GBP">Pound (GBP)</option>
+                          <option value="CHF">Franc Suisse (CHF)</option>
+                          <option value="USD">US Dollar (USD)</option>
+                      </select>
+                  </div>
+                  <div class="input-field col s12">
+                      <select class="teal-text" ng-model="searchInput.country.name">
+                          <option value="" disabled selected>Country</option>
+                           <option value="">All</option>
+                          <option value="France">France</option>
+                          <option value="Morocco">Morocco</option>
+                          <option value="Tunisia">Tunisia</option>
+                          <option value="Spain">Spain</option>
+                          <option value="Hungary">Hungary</option>
+                          <option value="Portugal">Portugal</option>
+                          <option value="Belgium">Belgium</option>
+                          <option value="Turkey">Turkey</option>
+                          <option value="India">India</option>
+                      </select>
+                  </div>
+                  <div class="input-field col s12">
+                      <select class="teal-text" ng-model="searchInput.city">
+                          <option value="" disabled selected>City</option>
+                          <option value="">All</option>
+                          <option value="Paris">Paris</option>
+                          <option value="Nice">Nice</option>
+                          <option value="Lyon">Lyon</option>
+                          <option value="Marseille">Marseille</option>
+                          <option value="Dieppe">Dieppe</option>
+                      </select>
+                  </div>
+                <div class="input-field col s12">
+                    <select class="teal-text" ng-model="searchInput.surgery.code">
+                        <option value="" disabled selected>service</option>
+                         <option value="">All</option>
+                        <option value="DNT">Dentistry</option>
+                        <option value="HRT">Cardiology</option>
+                        <option value="HAR">Hair</option>
+                        <option value="OPT">Ophtalmology</option>
+                        <option value="FIV">InVitro Fertility</option>
+                        <option value="POD">Podology</option>
+                        <option value="CAN">Cancerology</option>
+                        <option value="PLS">Plastic Surgery</option>
+                    <!--    <option value="RDO">Radiology</option>
+                        <option value="OTH">Orthopedia</option>
+                        <option value="PED">Pediatry</option> -->
+                    </select>
+                </div>
+                <button class="btn btn-large teal" ng-if="quotesInStack"></button>
+            </form>
+          </div>
+            <div class="col s12 l9 scrollable-6">
+                <div class="card horizontal white avatar teal-text text-lighten-2" ng-repeat="quote in quotes | filter : surgeryCountryCurrency(searchInput) as searchResults">
+                    <div class="card-image" style="width:25%;">
+                        <img class="circle responsive-img" ng-src="{{quote.pic}}" alt="{{quote.surname}} {{quote.name}} profile picture">
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content" ng-click="showDescription(quote)">
+
+                                    <b>{{quote.surname}} {{quote.name}}</b>
+                                    <p>Specialty: {{quote.surgery.name}}</br>Price: {{quote.price}}€</p>
+                                    <p ng-if="showingDescription && quote._id === currentDescription._id">
+                                        <b>Motivation:</b></br>{{currentDescription.motivation}}<br></br>
+                                    </p>
+                                    <h5 class="teal-text text-lighten-3" ng-show="currentDescription.accepted">You have accepted this quote!</h5>
+                        </div>
+                        <div class="card-action" ng-if="!showingDescription || quote._id != currentDescription._id">
+                            <a ng-click="showDescription(quote)"><i class="material-icons medium right tooltipped" data-tooltip="Show description">chevron_right</i></a>
+                        </div>
+                        <div class="card-action" ng-if="showingDescription && quote._id === currentDescription._id">
+                            <a class="btn teal white-text waves-effect col s12 l2" ng-if="currentDescription.accepted" ng-click="acceptQuote()" style="float:right; margin-right:20px;">Go</a>
+                            <a class="btn red lighten-2 white-text waves-effect col s12 l3" ng-if="currentDescription.accepted" ng-click="cancelQuote()">Cancel</a>
+                            <a class="btn teal white-text waves-effect col s12 l4" ng-if="currentDescription.accepted" ng-click="selectNewPeriod()">Select new period</a>
+                            <a class="btn teal white-text waves-effect col s12 l4" ng-if="currentDescription.accepted" ng-click="bookInterview()">Book interview</a>
+                            <a class="btn teal white-text waves-effect col s12 l4 modal-trigger" style="margin-left:20px;" ng-if="!logged" data-target="speechModal">More Info</a>
+                            <a class="btn teal white-text waves-effect" ng-if="logged && !currentDescription.added" ng-click="addDoctorToSelection()">Select Doctor</a>
+                            <a class="btn red lighten-2 white-text waves-effect" ng-if="logged && currentDescription.added" ng-click="removeDoctorFromSelection(currentDescription)">Remove Doctor</a>
+                            <a ng-click="closeDescription()"><i class="material-icons medium right">close</i></a>
+                        </div>
+                    </div>
+                </div>
+                <span class="red-text text-lighten-3" ng-show="!searchResults.length">Sorry, no matches found</span>
+            </div>
+            <div class="row right" ng-show="currentDescription.accepted">
+                <a class="btn teal white-text waves-effect" ng-click="interventionTabSet(2)">Next</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<ng-include src="'templates/snippets/footer.html'"></ng-include>
+
+
+<!--FAB-->
+<div class="fixed-action-btn" ng-show="quotesInStack" style="right:100px;">
+   <a class="btn btn-large teal">
+     <i class="large material-icons left">question_answer</i>Selected Quotes : {{quotesInStack}}
+   </a>
+   <ul >
+     <li ng-repeat="quote in quotes" ng-show="quote.added" ng-click="removeDoctorFromSelection(quote)">
+         <a class="btn btn-large red lighten-2 tooltipped" >
+             <i class="material-icons left">account_circle</i>
+             Remove {{quote.surname}}
+         </a>
+     </li>
+   </ul>
+ </div>
+
+
+<!-- Modal -->
+<div class="modal modal-fixed-footer seamlessModal" id="signinModal" ng-controller="AuthCtrl">
+	<div class="modal-content valign-wrapper">
+		<div class="container">
+			<div class="row" ng-init="slide=1">
+                <div class="col s12 valign center" ng-show="slide===1">
+                    <h3 class="white-text weight-7">Create your account!</h3>
+                    <p class="white-text">Get a free access to all our doctors and clinics database, and discover our services</p>
+                </div>
+				<div class="col s12 m6 l4 valign" ng-show="slide===2">
+					<span class="minor">
+						<i class="material-icons medium left">assignment_turned_in</i>
+						Sign In
+					</span>
+					<p class="teal-text text-lighten-2">
+						Quickly signin to our services. It won't take you more than a minute.
+					</p>
+					<hr class="divider hide-on-med-and-up">
+				</div>
+				<div class="col s12 m6 l8 white-text" ng-show="slide===2">
+					<form class="valign">
+						<div class="input-field col s12">
+							<i class="material-icons prefix grey-text">account_circle</i>
+							<input class="validate" type="text" id="name" ng-model="newUser.name" required>
+							<label>Name</label>
+						</div>
+						<div class="input-field col s12">
+							<i class="material-icons prefix grey-text">account_circle</i>
+							<input class="validate" type="text" id="surname" ng-model="newUser.surname" required>
+							<label>Surname</label>
+						</div>
+						<div class="input-field col s12">
+							<i class="material-icons prefix grey-text">mail</i>
+							<input class="validate" type="email" id="email" ng-model="newUser.email" required>
+							<label>E-mail</label>
+						</div>
+						<span class="label col s6">Birthdate</span>
+						<span class="label col s6">Gender</span>
+						<div class="input-field col s6" ng-click="convertDate()">
+							<i class="material-icons prefix grey-text">date_range</i>
+							<input class="validate" type="text" id="birth" ng-model="newUser.birthdate" placeholder="mm/dd/yyyy" required>
+						</div>
+						<div class="input-field col s6">
+							<div class="switch">
+								<label>
+								 Female
+								  <input type="checkbox" ng-model="newUser.sex">
+								  <span class="lever"></span>
+								  Male
+								</label>
+							</div>
+						</div>
+						<div class="input-field col s12">
+							<i class="material-icons prefix grey-text">lock</i>
+							<input class="validate" type="password" id="password" ng-model="newUser.password" required>
+							<label>Password</label>
+						</div>
+                        <div class="input-field col s12">
+                            <textarea class="materialize-textarea" ng-model="newUser.reason" placeholder="Explain briefly why you wish to use our services" name="reason">
+                            </textarea>
+                            <label for="reason">Explain your case</label>
+                        </div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+        <button class="btn teal white-text waves-effect right" ng-click="slide=2" ng-show="slide===1">Sign In<i class="material-icons right">arrow_right</i></button>
+		<button class="btn teal white-text waves-effect right modal-action modal-close" ng-click="signin(); slide=1" ng-show="slide===2">Sign In</button>
+	</div>
+</div>
+
+
+<script>
+
+	$(document).ready(function(){
+		$('.modal').modal();
+		$('.tooltipped').tooltip({delay: 50});
+		$('ul.tabs').tabs('select_tab', 'tab2');
+        $('select').material_select();
+        $('.datepicker').pickadate({
+          selectMonths: true, // Creates a dropdown to control month
+          selectYears: 99, // Creates a dropdown of 1 year to control year
+         });
+		$('.scrollspy').scrollSpy();
+    var slider = document.getElementById('range');
+    noUiSlider.create(range, {
+     start: [500, 2000],
+     connect: true,
+     step: 2,
+     range: {
+       'min': 300,
+       'max': 5000
+     },
+     format: wNumb({
+       decimals: 0
+     })
+    });
+	});
+
+
+</script>

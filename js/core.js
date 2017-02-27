@@ -1,6 +1,7 @@
-var app = angular.module('WWC',['Ctrls','Services','ui.router','ngAnimate']);
+var app = angular.module('WWC',['Ctrls','Services','Filters','ui.router','ngAnimate']);
 
 console.log('Welcome to WithWeCare');
+var socket = io.connect('http://82.223.10.127:8443',{reconnect: true});
 
 //GESTION DE LA DATE (PERIODE)
 
@@ -62,12 +63,11 @@ Date.prototype.getWeek = function() { //1 - 53
 	return parseInt(week);
 }
 
-
 app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
     $stateProvider.state('home',{
-        url:'/home',
+        url:'',
         templateUrl:'templates/home.html',
-        controller:'HomeCtrl',
+        controller:'MainCtrl',
         params:{
             name:'home',
             public: false,
@@ -131,6 +131,16 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
             display:'Bienvenue'
         }
     })
+		.state('landing.research',{
+				url:'/research',
+				templateUrl:'templates/views/main.research.html',
+				params:{
+					name:'research',
+					public:true,
+					display:'Research'
+				}
+		})
+
         //ETATS FILS DE LANDING
         .state('landing.main',{
             url:'/main',
@@ -212,5 +222,25 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
             },
             templateUrl:'templates/contact.html'
         })
+		.state('landing.forum',{
+			url:'/forum',
+			controller: 'ForumCtrl',
+			params:{
+				name:'forum',
+				public:true,
+				display:'Forum'
+			},
+			templateUrl:'templates/forum.html'
+		})
+	.state('admin',{
+		url:'/admin',
+		controller: 'AdminCtrl',
+		params:{
+			name:'admin',
+			public: true,
+			display: 'Administration'
+		},
+		templateUrl : 'templates/admin.html'
+	})
     $urlRouterProvider.otherwise('');
 }]);

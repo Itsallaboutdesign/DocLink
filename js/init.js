@@ -3,6 +3,7 @@ $(document).ready(function(){
     $('.collapsible').collapsible();
     $('select').material_select();
     $('.tooltipped').tooltip({delay:20});
+    $(".button-collapse").sideNav();
     $('.scrollspy').scrollSpy();
     $('.dropdown-button').dropdown({
        inDuration: 300,
@@ -15,13 +16,16 @@ $(document).ready(function(){
        selectMonths: true, // Creates a dropdown to control month
        selectYears: 15 // Creates a dropdown of 15 years to control year
      });
+     $('ul.tabs').tabs('select_tab', 'tab_id');
     heightToWidth();
+    $('.modal').modal();
 });
 
 $(window).ready(heightToWidth());
 $(window).resize(function(){
     heightToWidth();
 });
+
 
 function heightToWidth(){
     var rw = $('.rounded').width();

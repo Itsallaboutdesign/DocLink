@@ -1,5 +1,5 @@
-ctrl.controller('DashboardCtrl',['$http','$scope','$rootScope','$state','core',
-                                function($http,$scope,$rootScope,$state,core){
+ctrl.controller('DashboardCtrl',['$http','$scope','$rootScope','$state','core','quotes',
+                                function($http,$scope,$rootScope,$state,core,quotes){
     $state.go('dashboard.home');
 
     //--------------------------------------------------------------------------
@@ -9,7 +9,16 @@ ctrl.controller('DashboardCtrl',['$http','$scope','$rootScope','$state','core',
     init = function(){
 
         //Server calls
-        $scope.quotes = core.getQuotes();
+        $scope.quotes = [];
+        quotes.getAllQuotes().then(
+            function getAllQuotesSuccess(data){
+                if(typeof data.data != 'string') $scope.quotes = data.data;
+                else Materialize.toast(data.data,3000,'red lighten-2');
+            },
+            function getAllQuotesError(data){
+                console.log(data.data);
+            }
+        );
 
         //Local variable initialization
         $scope.showingDescription = false;
@@ -68,6 +77,16 @@ ctrl.controller('DashboardCtrl',['$http','$scope','$rootScope','$state','core',
     //--------------------------------------------------------------------------
 
 
+    ///UI
+
+    $scope.showNav = function(){
+        $('.side-nav').sideNav('show');
+    }
+
+    $scope.hideNav = function(){
+        $('.side-nav').sideNav('hide');
+    }
+
     ///INTERVENTION PART
 
     //Quotes tab
@@ -76,6 +95,7 @@ ctrl.controller('DashboardCtrl',['$http','$scope','$rootScope','$state','core',
     $scope.showDescription = function(quote){
         $scope.showingDescription = true;
         $scope.currentDescription = quote;
+        $scope.currentDescription.hits++;
     }
 
     //Closes description of a quote
@@ -106,6 +126,7 @@ ctrl.controller('DashboardCtrl',['$http','$scope','$rootScope','$state','core',
     //Switches the current tab
     $scope.interventionTabSet = function(tabNumber){
         tab_id = "quotes";
+        $scope.ui.intervention.tabState = tabNumber;
         $scope.interventionTabActivate(tabNumber);
         switch(tabNumber){
             case 1: tab_id = "quotes"; break;
@@ -130,6 +151,14 @@ ctrl.controller('DashboardCtrl',['$http','$scope','$rootScope','$state','core',
         document.getElementById(tab_id).className = "tab";
     }
 
+    $scope.interventionTabReset = function(){
+        var tabs = ['tab1','tab2','tab3','tab4','tab5'];
+        for (var i = 0; i < tabs.length; i++) {
+            document.getElementById(tabs[i]).className = "tab disabled teal-text text-lighten-5";
+        }
+        $scope.interventionTabSet(1);
+    }
+
     //Changes the tab state and calls the switching tab method
     $scope.interventionTabState = function(){
         $scope.ui.intervention.tabState ++;
@@ -140,18 +169,21 @@ ctrl.controller('DashboardCtrl',['$http','$scope','$rootScope','$state','core',
 
     //Accepting a quote
     $scope.acceptQuote = function(){
+        $scope.interventionTabReset();
+        $scope.interventionTabSet(1);
         $scope.interventionTabState();
         for (var i = 0; i < $scope.quotes.length; i++) {
             if($scope.quotes[i].accepted) Materialize.toast('The quote from '+ $scope.quotes[i].surname+' '+$scope.quotes[i].name+' has been canceled',3000,'red lighten-2 white-text');
             $scope.quotes[i].accepted = false;
         }
         $scope.currentDescription.accepted = true;
+        $scope.currentDescription.validations++;
         //The accepted quote is contained in $scope.currentDescription
         Materialize.toast('You accepted the quote from '+$scope.currentDescription.surname+' '+$scope.currentDescription.name,3000,'teal white-text');
     }
 
     $scope.cancelQuote = function(){
-        $scope.ui.intervention.tabState = 1;
+        $scope.interventionTabReset();
         $scope.currentDescription.accepted = false;
         Materialize.toast('The quote from '+ $scope.currentDescription.surname+' '+$scope.currentDescription.name+' has been canceled',3000,'red lighten-2 white-text');
     }
@@ -167,7 +199,7 @@ ctrl.controller('DashboardCtrl',['$http','$scope','$rootScope','$state','core',
     }
 
     $scope.submitMedicalProfile = function(){
-        $scope.interventionTabState();
+        $scope.ui.intervention.tabState = 3;
         $scope.interventionTabSet($scope.ui.intervention.tabState);
         Materialize.toast('Your medical profile has been saved',3000,'teal white-text');
     }

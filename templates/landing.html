@@ -2,20 +2,40 @@
 
 <!--Navbar-->
 <div class="row">
-	<nav class="white">
+	<nav class="landingnav white hide-on-med-and-down">
 		<div class="row">
-			<a href="#" class="brand-logo teal-text text-lighten-3 center">WithWeCare LOGO<span ng-if="logged"> Logged</span></a>
+			<a class="brand-logo teal-text text-lighten-3 center"><img class="logo" src="img/logo.png" alt="WithWeCare"/></a>
 		</div>
-		<div class="nav-wrapper" style="text-align:center;">
-			<ul class="menu">
+		<div class="nav-wrapper">
+			<ul class="menu hide-on-med-and-down">
 				<li><a ng-click="goTo('landing.main')">HOME</a></li>
 				<li><a ng-click="goTo('landing.about')">ABOUT US</a></li>
 				<li><a ng-click="goTo('landing.whatwedo')">WHAT WE DO</a></li>
 				<li><a ng-click="goTo('landing.clinics')">CLINICS</a></li>
 				<li><a ng-click="goTo('landing.contact')">CONTACT US</a></li>
-				<li><a href="#/landing/">FORUM</a></li>
+				<li><a ng-click="goTo('landing.forum')">FORUM</a></li>
+				<li><a ng-click="goTo('admin')" ng-if="currentUser.admin && logged">ADMIN</a></li>
 				<li><a ng-show="!logged" class="modal-trigger" data-target="loginModal">LOGIN</a>
-				<a ng-click="goTo('dashboard')"  ng-show="logged">DASHBOARD<a><li>
+				<li ng-controller="AuthCtrl"><a ng-show="logged" ng-click="logout()">LOGOUT</a></li>
+				<!-- <a ng-click="goTo('dashboard')"  ng-show="logged">DASHBOARD<a><li> -->
+			</ul>
+		</div>
+	</nav>
+	<nav class="landingnav-fixed fixed white hide-on-med-and-down">
+		<div class="nav-wrapper">
+			<a class="brand-logo teal-text text-lighten-3 center hide-on-large-only">WithWeCare</a>
+			<a data-activates="mobile-menu-fixed" class="button-collapse hide-on-large-only left teal-text text-lighten-2"><i class="material-icons">menu</i></a>
+			<ul class="menu hide-on-med-and-down">
+				<li><a ng-click="goTo('landing.main')">HOME</a></li>
+				<li><a ng-click="goTo('landing.about')">ABOUT US</a></li>
+				<li><a ng-click="goTo('landing.whatwedo')">WHAT WE DO</a></li>
+				<li><a ng-click="goTo('landing.clinics')">CLINICS</a></li>
+				<li><a ng-click="goTo('landing.contact')">CONTACT US</a></li>
+				<li><a ng-click="goTo('landing.forum')">FORUM</a></li>
+				<li><a ng-click="goTo('admin')" ng-if="currentUser.admin && logged">ADMIN</a></li>
+				<li><a ng-show="!logged" class="modal-trigger" data-target="loginModal">LOGIN</a>
+				<li ng-controller="AuthCtrl"><a ng-show="logged" ng-click="logout()">LOGOUT</a></li>
+				<!-- <a ng-click="goTo('dashboard')"  ng-show="logged">DASHBOARD<a><li> -->
 			</ul>
 		</div>
 	</nav>
@@ -31,6 +51,26 @@
  	  <li class="divider"></li>
  	  <li><a class="teal-text" ng-click="logout()">Logout</a></li>
   </ul>
+
+  <!-- Fixed action button-->
+<div class="fixed-action-btn hide-on-large-only click-to-toggle tooltipped" style="bottom: 5px; right: 5px;" data-tooltip="Menu" data-position="left">
+	<a class="btn btn-large teal">
+		<i class="material-icons">menu</i>
+	</a>
+  <ul>
+	<li class="tooltipped" data-tooltip="Home" data-position="left"><a class="btn btn-large teal lighten-1" style="width:100%" ng-click="goTo('landing.main')" ><i class="material-icons left">home</i></a></li>
+    <li class="tooltipped" data-tooltip="About us" data-position="left"><a class="btn btn-large teal lighten-1" style="width:100%" ng-click="goTo('landing.about')" ><i class="material-icons left">info</i></a></li>
+    <li class="tooltipped" data-tooltip="What we do" data-position="left"><a class="btn btn-large teal lighten-1" style="width:100%" ng-click="goTo('landing.whatwedo')"><i class="material-icons left">assignment_turned_in</i></a></li>
+    <li class="tooltipped" data-tooltip="Clinics" data-position="left"><a class="btn btn-large teal lighten-1" style="width:100%" ng-click="goTo('landing.clinics')"><i class="material-icons left">local_hospital</i></a></li>
+    <li class="tooltipped" data-tooltip="Contact us" data-position="left"><a class="btn btn-large teal lighten-1" style="width:100%" ng-click="goTo('landing.contact')"><i class="material-icons left">phone</i></a></li>
+	<li class="tooltipped" data-tooltip="Forum" data-position="left"><a class="btn btn-large teal lighten-1" style="width:100%" ng-click="goTo('landing.forum')"><i class="material-icons left">announcement</i></a></li>
+	<li class="tooltipped" data-tooltip="Administration" data-position="left"><a class="btn btn-large red darken-2 lighten-1" style="width:100%" ng-click="goTo('admin')" ng-if="logged && currentUser.admin"><i class="material-icons left">settings</i></a></li>
+	<li class="tooltipped" data-tooltip="Login" data-position="left"><a class="btn btn-large teal darken-2" style="width:100%"  data-target="loginModal" ng-show="!logged"><i class="material-icons left">account_circle</i></a></li>
+	<li class="tooltipped" data-tooltip="Logout" data-position="left" ng-controller="AuthCtrl"><a class="btn btn-large red lighten-2" style="width:100%" ng-click="logout();" ng-show="logged"><i class="material-icons left">account_circle</i></a></li>
+  </ul>
+</div>
+
+
 <!--Views-->
 <div class="row">
 	<div class="ui-view-container">
@@ -39,7 +79,7 @@
 </div>
 
 <!--Modals-->
-<div class="modal modal-fixed-footer seamlessModal" id="loginModal" ng-controller="AuthCtrl">
+<div class="modal modal-fixed-footer seamlessModal" id="loginModal" style="width: 100vw;" ng-controller="AuthCtrl">
 	<div class="modal-content valign-wrapper">
 
 			<div class="container">
@@ -71,11 +111,39 @@
 
 	</div>
 	<div class="modal-footer">
-		<button class="btn teal-lighten-2 white-text waves-effect waves-light right" ng-click="login()">Login</button>
+		<button class="btn teal-lighten-2 white-text waves-effect waves-light right modal-action modal-close" ng-click="login()">Login</button>
 	</div>
 </div>
 
-<div class="modal modal-fixed-footer seamlessModal" id="signinModal" ng-controller="AuthCtrl">
+<div class="modal modal-fixed-footer seamlessModal" id="speechModal" style="width: 100vw;" ng-controler="LandingCtrl">
+	<div class="modal-content valign-wrapper">
+		<div class="container">
+			<div class="row valign">
+				<div class="col s12 m6 l4">
+					<span class="minor">
+						<i class="material-icons large center">local_pharmacy</i><br>
+						Create your account!
+					</span>
+					<p class="teal-text text-lighten-2">
+						It's entirely free of charge.
+					</p>
+					<hr class="divider hide-on-med-and-up">
+				</div>
+				<div class="col s12 m6 l8">
+					<p class="flow-text white-text">
+						Access all accurate informations and data about our partners by creating a free account on WithWeCare.<br>
+						WithWeCare accompanies you during the entire process and helps you find the best medical service.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn teal waves-effect white-text modal-action modal-close" data-target="signinModal">Signin</button>
+	</div>
+</div>
+
+<div class="modal modal-fixed-footer seamlessModal" id="signinModal" style="height:100vh !important; width: 100vw;" ng-controller="AuthCtrl">
 	<div class="modal-content valign-wrapper">
 		<div class="container">
 			<div class="row">
@@ -87,6 +155,17 @@
 					<p class="teal-text text-lighten-2">
 						Quickly signin to our services. It won't take you more than a minute.
 					</p>
+					<div class="input-field col s12">
+						<div class="switch">
+							<label>
+							 Patient
+							  <input type="checkbox" ng-model="newUser.user_type">
+							  <span class="lever"></span>
+							  Doctor
+							</label>
+						</div>
+					</div>
+					<br><br><br>
 					<hr class="divider hide-on-med-and-up">
 				</div>
 				<div class="col s12 m6 l8 white-text">
@@ -108,9 +187,9 @@
 						</div>
 						<span class="label col s6">Birthdate</span>
 						<span class="label col s6">Gender</span>
-						<div class="input-field col s6">
+						<div class="input-field col s6" ng-click="convertDate()">
 							<i class="material-icons prefix grey-text">date_range</i>
-							<input class="validate datepicker" type="date" id="birth" ng-model="newUser.birthdate" max="1998-09-28" required>
+							<input class="validate" type="text" id="birth" ng-model="newUser.birthdate" placeholder="mm/dd/yyyy" required>
 						</div>
 						<div class="input-field col s6">
 							<div class="switch">
@@ -127,13 +206,17 @@
 							<input class="validate" type="password" id="password" ng-model="newUser.password" required>
 							<label>Password</label>
 						</div>
+						<div class="input-field col s12">
+							<textarea class="materialize-textarea" ng-model="newUser.reason" name="why" required></textarea>
+							<label for="why">Why would you like to use our services?</label>
+						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="modal-footer">
-		<button class="btn red lighten-2 white-text waves-effect left modal-action modal-close modal-trigger" data-target="loginModal"><i class="material-icons left">arrow_left</i>Back</button>
+		<button class="btn red lighten-2 white-text waves-effect left modal-action modal-close modal-trigger" data-target="loginModal"><i class="material-icons left">arrow_left</i>Login</button>
 		<button class="btn teal white-text waves-effect right modal-action modal-close" ng-click="signin()">Sign In</button>
 	</div>
 </div>
@@ -141,8 +224,13 @@
 <!--Init-->
 <script>
 	$(document).ready(function(){
-		  $(".button-collapse").sideNav();
-		  $('.modal-trigger').leanModal();
+		  $(".button-collapse").sideNav({
+			menuWidth: 300, // Default is 300
+			edge: 'left', // Choose the horizontal origin
+			closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+			draggable: true // Choose whether you can drag to open on touch screens
+		});
+		  $('.modal').modal();
 		  $('.datepicker').pickadate({
 			selectMonths: true, // Creates a dropdown to control month
 			selectYears: 99, // Creates a dropdown of 1 year to control year
@@ -152,4 +240,19 @@
 		    }
 		  );
 	  });
+	  $(document).on('scroll', function (e) {updateColor(); });
+
+		  function updateColor() {
+			  console.log('updateColor');
+			  var s= $(document).scrollTop();
+			  var o = $(document).scrollTop() / 200;
+			  var inverted = 1 - (($(document).scrollTop() - 4500)/300);
+			  if(s < 150) {o =0;}
+			  if(s > 200 && s < 4500) {o = 1; }
+			  if(s > 4499) {o = inverted;}
+			  var e = $('.landingnav-fixed');
+			  e.attr('style','opacity:'+o+';');
+		  }
+
+ 	  updateColor();
 </script>

@@ -1,0 +1,728 @@
+<!-- Administration panel template -->
+
+<div class="row" ng-if="!currentUser.admin" ng-controller="AuthCtrl">
+    <div class="col s12 m8 offset-m2 l6 offset-l3">
+        <div class="row center">
+            <h5 class="teal-text text-lighten-2 weight-3" ng-click="goTo('landing.main')">WithWeCare</h5>
+            <h3 class="teal-text text-lighten-1 weight-7">Administration panel</h3>
+            <hr class="divider">
+        </div>
+        <div class="row"><p></p><br><br><br></div>
+        <div class="row center">
+            <h5 class="red-text text-lighten-2 weight-3">Log in</h5>
+            <div class="input-field col s12">
+                <input class="validate" type="email" ng-model="user.email" name="mail" required>
+                <label for="mail">Email</label>
+            </div>
+            <div class="input-field col s12">
+                <input class="validate" type="password" ng-model="user.password" name="password" required>
+                <label for="password">Password</label>
+            </div>
+            <button class="btn teal white-text waves-effect col s12 m6 offset-m6" ng-click="login()">Connection</button>
+        </div>
+    </div>
+</div>
+<div ng-if="currentUser.admin" ng-controller="AdminCtrl">
+    <script>
+         $('ul.tabs').tabs();
+    </script>
+    <div class="row">
+        <nav>
+            <div class="nav-wrapper">
+                <a class="brand-logo teal-text hide-on-med-and-down" href="#">Administration Panel</a>
+                <ul class="right">
+                    <li><a class="btn btn-flat teal-text text-lighten-2 waves-effect" ng-click="goTo('landing.main')"><i class="material-icons">home</i>Home</a></li>
+                    <li><a class="btn btn-flat teal-text text-lighten-2 waves-effect" ng-click="refresh()"><i class="material-icons">refresh</i>Refresh</a></li>
+                    <li><a class="btn btn-flat red-text text-lighten-2 waves-effect" ng-click="logout()" ng-controller="AuthCtrl"><i class="material-icons">power_settings_new</i>Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="row center" ng-if="showTitle">
+        <h5 class="teal-text text-lighten-2 weight-3" ng-click="goTo('landing.main')">WithWeCare</h5>
+        <h3 class="teal-text text-lighten-1 weight-7">Welcome {{currentUser.surname}}</h3>
+        <hr class="divider">
+    </div>
+    <div class="row"><p></p></div>
+    <div class="row">
+        <ul class="tabs">
+            <li class="tab"><a href="#users" ng-click="stateType(1)">Users</a></li>
+            <li class="tab" ng-click="stateType(2)"><a href="#quotes">Quotes</a></li>
+            <li class="tab" ng-click="stateType(3)"><a href="#clinics">Clinics</a></li>
+            <li class="tab" ng-click="stateType(4)"><a href="#countries">Countries</a></li>
+            <li class="tab" ng-click="stateType(5)"><a href="#surgeries">Surgeries</a></li>
+        </ul>
+    </div>
+
+    <!--USERS-->
+
+    <div class="row" id="users">
+        <div class="col s3">
+            <ul class="collection scrollable-4">
+                <li class="collection-item teal lighten-2 white-text">{{users.length}} users in database</li>
+                <li class="collection-item" ng-repeat="user in users | orderBy : '-surname' : true" ng-click="displayUser(user)" ng-show="user.name !='' && user.name ">
+                    <b>{{user.surname}} {{user.name}}</b><br>
+                    {{user.email}}
+                </li>
+            </ul>
+            <button class="btn teal lighten-2 white-text col s12" ng-click="addUserMode()"><i class="material-icons left">add</i>Add User</button>
+        </div>
+
+        <button class="btn col s8 teal lighten-2" ng-click="addUserMode()" ng-show="!users.length && !state.addingUser && !state.displayUser ">Add user</button>
+
+        <div class="col s9" ng-show="state.displayUser || state.addingUser">
+            <div class="row fixed">
+                <div class="col s8">
+                    <h3 class="teal-text text-lighten-2" ng-show="state.addingUser">Adding a User</h3>
+                    <h3 class="teal-text text-lighten-2" ng-show="state.displayUser">{{state.currentUser.surname}} {{state.currentUser.name}}</h3>
+                    <h5 class="red-text text-lighten-2 weight-7" ng-show="state.currentUser.user_type && state.displayUser">Doctor ID : {{state.currentUser._id}}</h5>
+                </div>
+                <div class="col s4 valign-wrapper right">
+                    <button class="btn red lighten-2 white-text valign right" ng-click="exitUser()"><i class="material-icons">close</i></button>
+                </div>
+            </div>
+            <div class="card-panel scrollable-4">
+            <form class="col s12">
+                <h5>Basic informations</h5>
+                <div class="input-field col s6">
+                    <span class="label">Surname</span>
+                    <input type="text" ng-model="state.currentUser.surname" id="surname" name="surname">
+                </div>
+                <div class="input-field col s6">
+                    <span class="label">Name</span>
+                    <input type="text" ng-model="state.currentUser.name" id="name" name="name">
+                </div>
+                <div class="input-field col s12">
+                    <span class="label">Email</span>
+                    <input type="email" ng-model="state.currentUser.email" id="email" name="email">
+                </div>
+                <div class="input-field col s12">
+                    <span class="label">Password</span>
+                    <input type="password" ng-model="state.currentUser.password" id="password" name="password">
+                </div>
+                <div class="input-field col s6">
+                    <span class="label">Phone</span>
+                    <input type="text" ng-model="state.currentUser.phone" id="phone" name="phone">
+                </div>
+                <div class="input-field col s6">
+                    <span class="label">Mobile</span>
+                    <input type="text" ng-model="state.currentUser.mobile" id="mobile" name="mobile">
+                </div>
+                <div class="input-field col s4">
+                    <span class="label">Birthdate</span>
+                    <input type="text" ng-model="state.currentUser.birthdate" id="birthdate" name="birthdate" placeholder="mm/dd/yyyy">
+                </div>
+                <div class="input-field col s4">
+                    <div class="switch">
+                        <label>
+                         Female
+                          <input type="checkbox" ng-model="state.currentUser.sex">
+                          <span class="lever"></span>
+                          Male
+                        </label>
+                    </div>
+                </div>
+                <div class="input-field col s4">
+                    <div class="switch">
+                        <label>
+                         User
+                          <input type="checkbox" ng-model="state.currentUser.user_type">
+                          <span class="lever"></span>
+                          Doctor
+                        </label>
+                    </div>
+                </div>
+            </form>
+            <div class="row"><p></p></div>
+
+            <!--Doctor-->
+            <form class="col s12" ng-show="state.currentUser.user_type">
+                <h5>Doctor informations</h5>
+                <div class="input-field col s12">
+                    <span class="label">Describe briefly doctor here</span>
+                    <textarea id="description" name="description" ng-model="state.currentUser.description" class="materialize-textarea">
+                    </textarea>
+                </div>
+            </form>
+            <!--User-->
+            <form class="col s12" ng-show="!state.currentUser.user_type">
+                <h5>User informations</h5>
+                <span class="red-text text-lighten-2">No options are currently available for this type of user</span>
+            </form>
+
+            <div class="row"><p></p></div>
+
+            <h5>Address</h5>
+            <div class="input-field col s10">
+                <span class="label">Street</span>
+                <input type="text" class="validate" name="street" ng-model="state.currentUser.address.street" required>
+            </div>
+            <div class="input-field col s2">
+                <span class="label">Number</span>
+                <input type="number" min="1" class="validate" name="number" ng-model="state.currentUser.address.number" required>
+            </div>
+            <div class="input-field col s8">
+                <span class="label">City</span>
+                <input type="text" class="validate" name="city" ng-model="state.currentUser.address.city" required>
+            </div>
+            <div class="input-field col s4">
+                <span class="label">Zip code</span>
+                <input type="text" class="validate" name="zip" ng-model="state.currentUser.address.zip" required>
+            </div>
+            <div class="input-field col s12">
+                <span class="label">Country</span>
+                <button class="btn teal darken-4 teal-text text-lighten-2 col s12" data-target="countryModal">
+                    {{state.currentUser.address.country.name}}
+                </button>
+            </div>
+
+            <div class="row"><p></p></div>
+
+            <form class="col s12">
+                <h5>App informations</h5>
+                <div class="teal-text text-lighten-2" ng-show="state.displayUser">
+                    <b>Number of connections :</b> {{state.currentUser.connections}}<br>
+                    <b>State Changes:</b> {{state.currentUser.state_changes}}<br>
+                    <b>Last connection: </b> {{dateHourDisplay(state.currentUser.last_connection)}}<br>
+                    <b>Date of subscription :</b> {{dateDisplay(state.currentUser.signin_date)}}
+                </div>
+                <div class="input-field col s12">
+                    <span class="label">Profile Picture</span>
+                    <input type="text" ng-model="state.currentUser.profile_pic" id="profile_pic" name="profile_pic" placeholder="Insert absolute URL to the picture">
+                </div>
+                <div class="input-field col s4">
+                    <div class="switch">
+                        <label>
+                         Regular user
+                          <input type="checkbox" ng-model="state.currentUser.staff">
+                          <span class="lever"></span>
+                          Staff
+                        </label>
+                    </div>
+                </div>
+                <div class="input-field col s4" ng-show="state.currentUser.staff">
+                    <div class="switch">
+                        <label>
+                         Regular staff
+                          <input type="checkbox" ng-model="state.currentUser.admin">
+                          <span class="lever"></span>
+                         Admin
+                        </label>
+                    </div>
+                </div>
+            </form>
+            </div>
+            <div class="row"><p></p></div>
+            <div class="row"><p></p></div>
+            <div class="row"><p></p></div>
+
+            <div class="row right">
+                <button class="btn teal white-text" ng-click="add(state.currentUser)" ng-show="state.addingUser"><i class="material-icons left">add</i>Create user</button>
+                <button class="btn teal white-text" ng-click="save(state.currentUser)" ng-show="state.displayUser"><i class="material-icons left">save</i>Save user</button>
+                <button class="btn red lighten-2 white-text" ng-click="delete(state.currentUser)" ng-show="state.displayUser"><i class="material-icons left">delete</i>Delete user</button>
+            </div>
+        </div>
+    </div>
+
+    <!--QUOTES-->
+
+    <div class="row" id="quotes">
+        <div class="col s3">
+            <ul class="collection scrollable-4">
+                <li class="collection-item teal lighten-2 white-text">{{quotes.length}} quotes in database</li>
+                <li class="collection-item" ng-repeat="quote in quotes" ng-click="displayQuote(quote)">
+                    <b>{{quote.surname}} {{quote.name}}</b><br>
+                    {{quote.surgery.name}}
+                </li>
+            </ul>
+            <button class="btn teal lighten-2 white-text col s12" ng-click="addQuoteMode()"><i class="material-icons left">add</i>Add Quote</button>
+        </div>
+
+        <button class="btn col s8 teal lighten-2" ng-click="addQuoteMode()" ng-show="!quotes.length && !state.addingQuote && !state.displayQuote">Add quote</button>
+
+        <div class="col s9" ng-show="state.displayQuote || state.addingQuote">
+            <div class="row">
+                <div class="col s8">
+                    <h3 class="teal-text text-lighten-2" ng-show="state.addingQuote">Adding a Quote</h3>
+                    <h3 class="teal-text text-lighten-2" ng-show="state.displayQuote">{{state.currentQuote.surname}} {{state.currentQuote.name}}</h3>
+                </div>
+                <div class="col s4 valign-wrapper right">
+                    <button class="btn red lighten-2 white-text valign right" ng-click="exitQuote()"><i class="material-icons">close</i></button>
+                    <button class="btn teal white-text valign right" ng-click="save(state.currentQuote)" ng-show="state.displayQuote"><i class="material-icons">save</i></button>
+                </div>
+            </div>
+            <form class="col s12 card-panel scrollable-4">
+                <h5>Quote informations</h5>
+                <div class="input-field col s6">
+                    <span class="label">Price</span>
+                    <input type="number" ng-model="state.currentQuote.price" id="price" name="price" placeholder="Price">
+                </div>
+                <div class="input-field col s6">
+                    <span class="label">Currency</span>
+                    <input type="text" ng-model="state.currentQuote.currency" id="currency" name="currency" placeholder="Currency e.g. EUR, GBP, CHF...">
+                </div>
+                <div class="input-field col s12">
+                    <span class="label">Select doctor</span>
+                    <button class="btn teal darken-4 teal-text text-lighten-2 col s12" data-target="doctorModal">{{state.currentQuote.name}} {{state.currentQuote.surname}}</button>
+                </div>
+                <div class="input-field col s12">
+                    <span class="label">Database Doctor ID</span>
+                    <input type="text" ng-model="state.currentQuote.doctor_id" id="doctor_id" name="doctor_id" placeholder="do not write here if unsure" disabled>
+                </div>
+                <div class="input-field col s6">
+                    <span class="label">Surname</span>
+                    <input type="text" ng-model="state.currentQuote.surname" id="surname" name="surname" disabled>
+                </div>
+                <div class="input-field col s6">
+                    <span class="label">Name</span>
+                    <input type="text" ng-model="state.currentQuote.name" id="name" name="name" disabled>
+                </div>
+                <div class="input-field col s12">
+                    <span class="label">Picture</span>
+                    <input type="text" ng-model="state.currentQuote.pic" id="profile_pic" name="profile_pic" placeholder="Insert absolute URL to the picture">
+                </div>
+                <div class="input-field col s12">
+                    <span class="label">Select surgery</span>
+                    <button class="btn teal lighten-2 teal-text darken-4 col s12" data-target="surgeryModal">{{state.currentQuote.surgery.name}}</button>
+                </div>
+                <div class="input-field col s4">
+                    <input type="text" ng-model="state.currentQuote.surgery.name" id="surgeryName" name="surgeryName" placeholder="Displayed specialty" disabled>
+                </div>
+                <div class="input-field col s4">
+                    <span class="label">Surgery Code</span>
+                    <input type="text" ng-model="state.currentQuote.surgery.code" id="surgeryCode" name="surgeryCode" placeholder="Three letters code for surgery type" disabled>
+                </div>
+                <div class="input-field col s4">
+                    <span class="label">Country</span>
+                    <button class="btn teal darken-4 teal-text text-lighten-2 col s12" data-target="countryModal">
+                        {{state.currentQuote.country.name}}
+                    </button>
+                </div>
+
+                <div class="input-field col s12">
+                    <span class="label">Motivation/Description</span>
+                    <textarea class="materialize-textarea" ng-model="state.currentQuote.motivation" id="motivation" name="motivation">
+                    </textarea>
+                </div>
+            </form>
+            <div class="row"><p></p></div>
+
+            <div class="row right">
+                <button class="btn teal white-text" ng-click="add(state.currentQuote)" ng-show="state.addingQuote"><i class="material-icons left">add</i>Create quote</button>
+                <button class="btn teal white-text" ng-click="save(state.currentQuote)" ng-show="state.displayQuote"><i class="material-icons left">save</i>Save quote</button>
+                <button class="btn red lighten-2 white-text" ng-click="delete(state.currentQuote)" ng-show="state.displayQuote"><i class="material-icons left">delete</i>Delete quote</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clinics -->
+
+    <div class="row" id="clinics">
+        <div class="col s3">
+            <ul class="collection scrollable-4">
+                <li class="collection-item teal lighten-2 white-text">{{clinics.length}} clinics in database</li>
+                <li class="collection-item" ng-repeat="clinic in clinics" ng-click="displayClinic(clinic)">
+                    <b>{{clinic.name}}</b><br>
+                    {{clinic.address.country.name}}
+                </li>
+            </ul>
+            <button class="btn teal lighten-2 white-text col s12" ng-click="addClinicMode()"><i class="material-icons left">add</i>Add Clinic</button>
+        </div>
+
+        <button class="btn col s8 teal lighten-2" ng-click="addClinicMode()" ng-show="!clinics.length && !state.addingClinic && !state.displayClinic">Add clinic</button>
+
+        <div class="col s9" ng-show="state.displayClinic || state.addingClinic">
+            <div class="row">
+                <div class="col s8">
+                    <h3 class="teal-text text-lighten-2" ng-show="state.addingClinic">Adding a Clinic</h3>
+                    <h3 class="teal-text text-lighten-2" ng-show="state.displayClinic">{{state.currentClinic.name}}</h3>
+                </div>
+                <div class="col s4 valign-wrapper right">
+                    <button class="btn red lighten-2 white-text valign right" ng-click="exit()"><i class="material-icons">close</i></button>
+                    <button class="btn teal white-text valign right" ng-click="saveClinic(state.currentClinic)" ng-show="state.displayClinic"><i class="material-icons">save</i></button>
+                </div>
+            </div>
+            <form class="col s12 card-panel scrollable-4">
+                <h5>Clinic informations</h5>
+                <div class="input-field col s12">
+                    <span class="label">Name</span>
+                    <input class="validate" type="text" name="name" id="name" ng-model="state.currentClinic.name" required>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s6">
+                        <span class="teal-text weight-7">Recording working doctors at {{state.currentClinic.name}}</span><br>
+                        <span class="red-text weight-7">Write database doctor ids here only. Do not write anything if unsure.</span><br>
+                        <span class="red-text weight-3">Database doctor ids can be found in the users tab, under the doctor name. These fields are only for copy/paste.</span><br>
+                    </div>
+                    <div class="input-field col s6 valign-wrapper">
+                        <button class="btn teal lighten-2 white-text waves-effect valign" ng-click="addDoctorToClinic(state.currentClinic)"><i class="material-icons">add</i>Doctor</button>
+                    </div>
+                </div>
+                <div class="row" ng-repeat="doctor in state.currentClinic.doctors_id">
+                    <div class="input-field col s8">
+                        <span class="label">Select doctor #{{$index+1}}</span>
+                        <button class="btn teal darken-4 teal-text text-lighten-2 col s12" data-target="doctorModal" ng-click="state.clinicIndex = $index">
+                            {{state.currentClinic.doctors_id[$index]}}
+                        </button>
+                    </div>
+                    <div class="input-field col s4 valign-wrapper">
+                        <button class="btn red lighten-2 waves-effect valign" ng-click="deleteDoctorFromClinic(state.currentClinic,$index)"><i class="material-icons">delete</i></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s8">
+                        <span class="label">Phone</span>
+                        <input type="text" name="phone" ng-model="state.currentClinic.phone">
+                    </div>
+                    <div class="input-field col s4">
+                        <span class="label">Rating</span>
+                        <input class="validate" type="number" min="0" max="10" name="rating" ng-model="state.currentClinic.rating">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <span class="teal-text weight-7">Recording accreditations of {{state.currentClinic.name}}</span><br>
+                        <span class="red-text">These fields are only for copy/paste.</span>
+                    </div>
+                    <div class="input-field col s6 valign-wrapper">
+                        <button class="btn teal lighten-2 white-text waves-effect valign" ng-click="addAccreditationToClinic(state.currentClinic)"><i class="material-icons">add</i>Accreditation</button>
+                    </div>
+                </div>
+                <div class="row" ng-repeat="acc in state.currentClinic.accreditations">
+                    <div class="input-field col s8" >
+                        <input type="text" name="acc_$index" ng-model="state.currentClinic.accreditations[$index]">
+                        <label for="acc_$index">Accreditation #{{$index+1}}</label>
+                    </div>
+                    <div class="input-field col s4 valign-wrapper">
+                        <button class="btn red lighten-2 waves-effect valign" ng-click="deleteAccreditationFromClinic(state.currentClinic,$index)"><i class="material-icons">delete</i></button>
+                    </div>
+                </div>
+                <h5>Address</h5>
+                <div class="input-field col s10">
+                    <span class="label">Street</span>
+                    <input type="text" class="validate" name="street" ng-model="state.currentClinic.address.street" required>
+                </div>
+                <div class="input-field col s2">
+                    <span class="label">Number</span>
+                    <input type="number" min="1" class="validate" name="number" ng-model="state.currentClinic.address.number" required>
+                </div>
+                <div class="input-field col s8">
+                    <span class="label">City</span>
+                    <input type="text" class="validate" name="city" ng-model="state.currentClinic.address.city" required>
+                </div>
+                <div class="input-field col s4">
+                    <span class="label">Zip code</span>
+                    <input type="text" class="validate" name="zip" ng-model="state.currentClinic.address.zip" required>
+                </div>
+                <div class="input-field col s12">
+                    <span class="label">Country</span>
+                    <button class="btn teal darken-4 teal-text text-lighten-2 col s12" data-target="countryModal">
+                        {{state.currentClinic.address.country.name}}
+                    </button>
+                </div>
+
+            </form>
+            <div class="row"><p></p></div>
+
+            <div class="row right">
+                <button class="btn teal white-text" ng-click="addClinic(state.currentClinic)" ng-show="state.addingClinic"><i class="material-icons left">add</i>Create clinic</button>
+                <button class="btn teal white-text" ng-click="saveClinic(state.currentClinic)" ng-show="state.displayClinic"><i class="material-icons left">save</i>Save clinic</button>
+                <button class="btn red lighten-2 white-text" ng-click="deleteClinic(state.currentClinic)" ng-show="state.displayClinic"><i class="material-icons left">delete</i>Delete clinic</button>
+            </div>
+        </div>
+    </div>
+
+    <!--Countries-->
+
+    <div class="row" id="countries">
+        <div class="col s3">
+            <ul class="collection scrollable-4">
+                <li class="collection-item teal lighten-2 white-text">{{countries.length}} countries in database</li>
+                <li class="collection-item" ng-repeat="country in countries" ng-click="displayCountry(country)">
+                    <b>{{country.name}}</b><br>
+                </li>
+            </ul>
+            <button class="btn teal lighten-2 white-text col s12" ng-click="addCountryMode()"><i class="material-icons left">add</i>Add Country</button>
+        </div>
+
+        <button class="btn col s8 teal lighten-2" ng-click="addCountryMode()" ng-show="!countries.length && !state.addingCountry && !state.displayCountry">Add country</button>
+
+        <div class="col s9" ng-show="state.displayCountry || state.addingCountry">
+            <div class="row">
+                <div class="col s8">
+                    <h3 class="teal-text text-lighten-2" ng-show="state.addingCountry">Adding a Country</h3>
+                    <h3 class="teal-text text-lighten-2" ng-show="state.displayCountry">{{state.currentCountry.name}}</h3>
+                </div>
+                <div class="col s4 valign-wrapper right">
+                    <button class="btn red lighten-2 white-text valign right" ng-click="exit()"><i class="material-icons">close</i></button>
+                    <button class="btn teal white-text valign right" ng-click="saveCountry(state.currentCountry)" ng-show="state.displayCountry"><i class="material-icons">save</i></button>
+                </div>
+            </div>
+            <form class="col s12 card-panel scrollable-4">
+                <h5>Country informations</h5>
+                <span class="red-text text-lighten-2">All names must be stated in English and correctly spelled in order to preserve database integrity and application functions</span><br>
+                <div class="input-field col s12">
+                    <span class="label">Name</span>
+                    <input class="validate" type="text" name="name" id="name" ng-model="state.currentCountry.name" required>
+                </div>
+                <div class="input-field col s6">
+                    <span class="label">Continent</span>
+                    <input class="validate" type="text" name="continent" id="continent" ng-model="state.currentCountry.continent" required>
+                </div>
+                <div class="input-field col s6">
+                    <span class="label">Region</span>
+                    <input class="validate" type="text" name="region" id="region" ng-model="state.currentCountry.region" required>
+                </div>
+                <div class="input-field col s12">
+                    <span class="label">Capital City</span>
+                    <input class="validate" type="text" name="capital" id="capital" ng-model="state.currentCountry.capital">
+                </div>
+                <div class="input-field col s4">
+                    <span class="label">Population</span>
+                    <input class="validate" type="number" min="1" name="population" id="population" ng-model="state.currentCountry.population" required>
+                </div>
+                <div class="input-field col s4">
+                    <span class="label">Male proportion</span>
+                    <input class="validate" type="number" min="0" max="100" name="male_p" id="male_p" ng-model="state.currentCountry.male_proportion">
+                </div>
+                <div class="input-field col s4">
+                    <span class="label">Expected Lifetime</span>
+                    <input class="validate" type="number" min="30" max="100" name="exp" id="exp" ng-model="state.currentCountry.exp_lifetime">
+                </div>
+
+            </form>
+            <div class="row"><p></p></div>
+
+            <div class="row right">
+                <button class="btn teal white-text" ng-click="addCountry(state.currentCountry)" ng-show="state.addingCountry"><i class="material-icons left">add</i>Create country</button>
+                <button class="btn teal white-text" ng-click="saveCountry(state.currentCountry)" ng-show="state.displayCountry"><i class="material-icons left">save</i>Save country</button>
+                <button class="btn red lighten-2 white-text" ng-click="deleteCountry(state.currentCountry)" ng-show="state.displayCountry"><i class="material-icons left">delete</i>Delete country</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Surgeries-->
+    <div class="row" id="surgeries">
+        <div class="col s3">
+            <ul class="collection scrollable-4">
+                <li class="collection-item teal lighten-2 white-text">{{surgeries.length}} surgeries in database</li>
+                <li class="collection-item" ng-repeat="surgery in surgeries" ng-click="displaySurgery(surgery)">
+                    <b>{{surgery.name}}</b><br>
+                    {{surgery.code}}
+                </li>
+            </ul>
+            <button class="btn teal lighten-2 white-text col s12" ng-click="addSurgeryMode()"><i class="material-icons left">add</i>Add Surgery</button>
+            <button class="btn teal lighten-1 white-text col s12" data-target="infoSurgery"><i class="material-icons left">info</i>Surgery Codes Convention</button>
+        </div>
+        <div class="col s9" ng-show="state.displaySurgery || state.addingSurgery">
+            <div class="row">
+                <div class="col s8">
+                    <h3 class="teal-text text-lighten-2" ng-show="state.addingSurgery">Adding a Surgery</h3>
+                    <h3 class="teal-text text-lighten-2" ng-show="state.displaySurgery">{{state.currentSurgery.name}}</h3>
+                </div>
+                <div class="col s4 valign-wrapper right">
+                    <button class="btn red lighten-2 white-text valign right" ng-click="exit()"><i class="material-icons">close</i></button>
+                    <button class="btn teal white-text valign right" ng-click="saveSurgery(state.currentSurgery)" ng-show="state.displaySurgery"><i class="material-icons">save</i></button>
+                </div>
+            </div>
+            <form class="col s12 card-panel  scrollable-4">
+                <h5>Surgery informations</h5>
+                <div class="input-field col s12">
+                    <span class="label">Surgery/Specialty Name</span>
+                    <input type="text" class="validate" name="name" ng-model="state.currentSurgery.name"/>
+                </div>
+                <div class="input-field col s6">
+                    <span class="label">Surgery/Specialty Code</span>
+                    <input type="text" class="validate" name="code" ng-model="state.currentSurgery.code"/>
+                </div>
+                <div class="input-field col s6">
+                    <span class="label">Clinic</span>
+                    <button class="btn teal darken-4 teal-text text-lighten-2 col s12" data-target="clinicModal">{{state.currentSurgery.clinic.name}}</button>
+                </div>
+            </form>
+            <div class="row"><p></p></div>
+
+            <div class="row right">
+                <button class="btn teal white-text" ng-click="addSurgery(state.currentSurgery)" ng-show="state.addingSurgery"><i class="material-icons left">add</i>Create surgery</button>
+                <button class="btn teal white-text" ng-click="saveSurgery(state.currentSurgery)" ng-show="state.displaySurgery"><i class="material-icons left">save</i>Save surgery</button>
+                <button class="btn red lighten-2 white-text" ng-click="deleteSurgery(state.currentSurgery)" ng-show="state.displaySurgery"><i class="material-icons left">delete</i>Delete surgery</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal-->
+<div class="modal bottom-sheet seamlessModal" id="doctorModal">
+	<div class="modal-content valign-wrapper">
+		<div class="container">
+			<div class="row">
+                <h5 class="minor">Doctor Selection</h5>
+            </div>
+            <div class="row">
+                <ul class="collection white-text seamless scrollable-3">
+                    <li class="collection-item avatar seamless clickable waves-effect waves-light col s12 modal-action modal-close" ng-repeat="usr in users as userTable" ng-if="usr.user_type" ng-click="selectDoctor(usr,state.type)">
+                        <i class="material-icons circle grey white-text left">account_circle</i>
+                        <span class="weight-7">{{usr.name}} {{usr.surname}}</span>
+                        <p>{{usr.surgery.name}}</p>
+                    </li>
+                    <li class="collection-item avatar seamless" ng-if="!userTable.length">
+                        <i class="material-icons circle grey white-text left">clear</i>
+                        <p>No doctor in database</p>
+                    </li>
+                </ul>
+            </div>
+		</div>
+	</div>
+</div>
+
+<div class="modal bottom-sheet seamlessModal" id="surgeryModal">
+	<div class="modal-content valign-wrapper">
+		<div class="container">
+			<div class="row">
+                <h5 class="minor">Surgery Selection</h5>
+            </div>
+            <div class="row">
+                <ul class="collection white-text seamless scrollable-3">
+                    <li class="collection-item avatar seamless clickable waves-effect waves-light col s12 modal-action modal-close" ng-repeat="surgery in surgeries as res" ng-click="selectSurgery(surgery, state.type)">
+                        <i class="material-icons circle grey white-text left">local_hospital</i>
+                        <span class="weight-7">{{surgery.name}}</span>
+                    </li>
+                    <li class="collection-item avatar seamless col s12" ng-if="!res.length">
+                        <i class="material-icons circle grey white-text left">clear</i>
+                        <p>No surgery in database</p>
+                    </li>
+                </ul>
+            </div>
+		</div>
+	</div>
+</div>
+
+<div class="modal bottom-sheet seamlessModal" id="infoSurgery">
+	<div class="modal-content valign-wrapper">
+		<div class="container">
+			<div class="row">
+                <h5 class="minor"><i class="material-icons medium">info</i>Surgery Codes</h5>
+            </div>
+            <div class="row scrollable-2">
+                <ul class="collection white-text seamless">
+                    <li class="collection item">
+                        <b>CAN</b>
+                        <p>Cancerology</p>
+                    </li>
+                    <li class="collection item">
+                        <b>DRM</b>
+                        <p>Dermatology</p>
+                    </li>
+
+                    <li class="collection item">
+                        <b>DNT</b>
+                        <p>Dentistry, Dental surgery</p>
+                    </li>
+                    <li class="collection item">
+                        <b>FIV</b>
+                        <p>InVitro Fertility</p>
+                    </li>
+                    <li class="collection item">
+                        <b>GER</b>
+                        <p>Gerontology</p>
+                    </li>
+                    <li class="collection item">
+                        <b>GYN</b>
+                        <p>Gynecology</p>
+                    </li>
+                    <li class="collection item">
+                        <b>HAR</b>
+                        <p>Hair treatment, Hair Surgery</p>
+                    </li>
+                    <li class="collection item">
+                        <b>HRT</b>
+                        <p>Cardiology, Heart Surgery</p>
+                    </li>
+                    <li class="collection item">
+                        <b>NRL</b>
+                        <p>Neurology</p>
+                    </li>
+                    <li class="collection item">
+                        <b>OPT</b>
+                        <p>Ophtalmology</p>
+                    </li>
+                    <li class="collection item">
+                        <b>OTH</b>
+                        <p>Orthopedia</p>
+                    </li>
+                    <li class="collection item">
+                        <b>PED</b>
+                        <p>Pediatry</p>
+                    </li>
+                    <li class="collection item">
+                        <b>PLS</b>
+                        <p>Esthetic surgery, Plastic Surgery</p>
+                    </li>
+                    <li class="collection item">
+                        <b>POD</b>
+                        <p>Podology</p>
+                    </li>
+                    <li class="collection item">
+                        <b>RDO</b>
+                        <p>Radiology</p>
+                    </li>
+                    <li class="collection item">
+                        <b>Add a code on request</b>
+                    </li>
+                </ul>
+            </div>
+		</div>
+	</div>
+</div>
+
+<div class="modal bottom-sheet seamlessModal" id="countryModal">
+	<div class="modal-content valign-wrapper">
+		<div class="container">
+			<div class="row">
+                <h5 class="minor">Country Selection</h5>
+            </div>
+            <div class="row">
+                <ul class="collection white-text seamless scrollable-3">
+                    <li class="collection-item avatar seamless clickable waves-effect waves-light col s12 modal-action modal-close" ng-repeat="country in countries as countryTable" ng-click="selectCountry(country, state.type)">
+                        <i class="material-icons circle grey white-text left">map</i>
+                        <span class="weight-7">{{country.name}}</span>
+                        <p>{{country.region}}</p>
+                    </li>
+                    <li class="collection-item avatar seamless col s12" ng-if="!countryTable.length">
+                        <i class="material-icons circle grey white-text left">clear</i>
+                        <p>No country in database</p>
+                    </li>
+                </ul>
+            </div>
+		</div>
+	</div>
+</div>
+
+<div class="modal bottom-sheet seamlessModal" id="clinicModal">
+	<div class="modal-content valign-wrapper">
+		<div class="container">
+			<div class="row">
+                <h5 class="minor">Clinic Selection</h5>
+            </div>
+            <div class="row">
+                <ul class="collection white-text seamless scrollable-3">
+                    <li class="collection-item avatar seamless clickable waves-effect waves-light col s12 modal-action modal-close" ng-repeat="clinic in clinics as clinicTable" ng-click="selectClinic(clinic, state.type)">
+                        <i class="material-icons circle grey white-text left">local_hospital</i>
+                        <span class="weight-7">{{clinic.name}}</span>
+                        <p>{{clinic.address.country.name}}</p>
+                    </li>
+                    <li class="collection-item avatar seamless col s12" ng-if="!clinicTable.length">
+                        <i class="material-icons circle grey white-text left">clear</i>
+                        <p>No clinic in database</p>
+                    </li>
+                </ul>
+            </div>
+		</div>
+	</div>
+</div>
+
+
+
+<script type="text/javascript" src="js/init.js"></script>

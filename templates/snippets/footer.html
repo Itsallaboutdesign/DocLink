@@ -1,17 +1,17 @@
 <!--Footer-->
 <div class="row teal lighten-3 footer height-4">
 
-		<div class="col s8">
+		<div class="col s12 m8">
 			<div class="row">
 				<ul class="white-text footerMenu">
-					<li><a ng-click="goTo('landing.about')" class="clickable">ABOUT US</a></li>
-					<li><a href="#/landing/">WHAT WE DO</a></li>
-					<li><a href="#/landing/">CLINICS</a></li>
-					<li><a href="#/landing/">CONTACT US</a></li>
-					<li><a href="#/landing/">LOGIN</a></li>
+					<li class="clickable"><a ng-click="goTo('landing.about')" class="clickable">ABOUT US</a></li>
+					<li class="clickable"><a ng-click="goTo('landing.whatwedo')">WHAT WE DO</a></li>
+					<li class="clickable"><a ng-click="goTo('landing.clinics')">CLINICS</a></li>
+					<li class="clickable"><a ng-click="goTo('landing.contact')">CONTACT US</a></li>
+					<li class="clickable hide-on-med-and-up"><a ng-click="goTo('landing.contact')">FOLLOW US</a></li>
 				</ul>
 			</div>
-			<div class="row">
+			<div class="row footerText">
 				<p class="white-text">By using our site, you agree to the WITHWE CARE Terms and
 	Conditions.<br>
 	WITHWE CARE does not provide medical advice, diagnosis or treatment.<br>
@@ -20,7 +20,7 @@
 				<p class="white-text weight-7">Copyright 2016 © WithWeCare</p>
 			</div>
 		</div>
-		<div class="col s4">
+		<div class="col m4 hide-on-small-only">
 			<div class="social left-bordered">
 				<h4 class="weight-7 white-text">Follow us</h4>
 			</div>

@@ -2,7 +2,8 @@
 <!-- Clinic info view-->
 <h5 class="teal-text text-lighten-2 weight-7">{{currentClinic.name}}</h5>
     <p class="teal-text text-lighten-2">
-        {{currentClinic.location}}<br>
+        {{currentClinic.address.number}}, {{currentClinic.address.street}}<br>
+        {{currentClinic.address.zip}} {{currentClinic.address.city}} - {{currentClinic.address.country.name}}<br>
         {{currentClinic.phone}}
     </p>
     <hr class="divider">

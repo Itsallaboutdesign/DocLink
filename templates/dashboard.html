@@ -5,13 +5,23 @@
 	<nav class="white teal-text dashnav">
 		<div class="nav-wrapper">
 			<a ng-click="goTo('landing.main')" class="brand-logo teal-text text-lighten-3 left">WithWeCare</a>
-			<ul class="teal-text right">
+			<a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+			<ul class="teal-text right hide-on-med-and-down">
 				<li><a ng-click="goTo('dashboard.home')">HOME</a></li>
 				<li><a ng-click="goTo('dashboard.interventions')">INTERVENTIONS</a></li>
 				<li><a ng-click="goTo('dashboard.history')">HISTORY OF ACTIONS</a></li>
 				<li><a ng-click="goTo('dashboard.calendar')">CALENDAR</a></li>
 				<li><a ng-click="goTo('forum')">FORUM</a></li>
 				<li><a class="dropdown-button" data-activates="profileDropdown"><i class="material-icons">account_circle</i></a>
+				<li ng-show="logged"><a class="dropdown-button" data-activates="searchDropdown"><i class="material-icons">search</i></a></li>
+			</ul>
+			<ul class="side-nav " id="mobile-menu">
+				<li><a ng-click="goTo('dashboard.home')">HOME</a></li>
+				<li><a ng-click="goTo('dashboard.interventions')">INTERVENTIONS</a></li>
+				<li><a ng-click="goTo('dashboard.history')">HISTORY OF ACTIONS</a></li>
+				<li><a ng-click="goTo('dashboard.calendar')">CALENDAR</a></li>
+				<li><a ng-click="goTo('forum')">FORUM</a></li>
+				<li><a class="dropdown-button" data-activates="profileDropdown2"><i class="material-icons">account_circle</i></a>
 				<li ng-show="logged"><a><i class="material-icons">search</i></a></li>
 			</ul>
 		</div>
@@ -20,9 +30,24 @@
 
 <!--Profile dropdown-->
 <ul id="profileDropdown" class="dropdown-content" ng-controller="AuthCtrl">
+  <li><a href="#!"><i class="material-icons left">account_circle</i>{{currentUser.surname}}</a></li>
+  <li ng-click="logout()"><a href="#!"><i class="material-icons left">exit_to_app</i>Log out</a></li>
+</ul>
+<ul id="profileDropdown2" class="dropdown-content teal white-text" ng-controller="AuthCtrl">
   <li><a href="#!"><i class="material-icons left">account_circle</i>Username</a></li>
   <li ng-click="logout()"><a href="#!"><i class="material-icons left">exit_to_app</i>Log out</a></li>
 </ul>
+<div id="searchDropdown" class="dropdown-content teal-text text-lighten-3">
+	  <form class="col s12" ng-submit="goTo('dashboard.search')">
+	  <div class="input-field col s10">
+	  	<input type="text" ng-model="search" id="search" name="search" placeholder="Search for anything"></input>
+	  </div>
+	  	<div class="col s2 " ng-click="goTo('dashboard.search')">
+		  <i class="material-icons clickable">search</i>
+		</div>
+	</form>
+
+</div>
 
 <div class="row">
 	<!--Content-->
@@ -39,10 +64,43 @@
     </a>
     <ul>
       <li><a class="btn-floating teal darken-1 tooltipped" data-tooltip="Call your doctor"  data-position="left" ><i class="material-icons">phone</i></a></li>
-      <li><a class="btn-floating teal tooltipped" data-tooltip="Chat with your doctor"  data-position="left"><i class="material-icons">chat</i></a></li>
+      <li><a class="btn-floating teal tooltipped modal-trigger" data-target="chat" data-tooltip="Chat with your doctor"  data-position="left"><i class="material-icons">chat</i></a></li>
       <li><a class="btn-floating teal lighten-1 tooltipped" data-tooltip="Info about your doctor"  data-position="left"><i class="material-icons">info</i></a></li>
       <li><a class="btn-floating teal lighten-2 tooltipped" data-tooltip="Recommended articles"  data-position="left"><i class="material-icons">view_headline</i></a></li>
     </ul>
+  </div>
+
+  <!-- Modals -->
+
+  <!--CHAT-->
+  <div class="modal modal-fixed-footer seamlessModal" id="chat" ng-controller="AuthCtrl">
+  	<div class="modal-content valign-wrapper">
+  		<div class="container">
+  			<div class="row">
+  				<div class="col s12 m6 l4 valign">
+  					<span class="minor">
+  						<i class="material-icons medium left">assignment_turned_in</i>
+  						Your doctors
+  					</span>
+  					<ul class='collection white-text'>
+						<li class='collection-item avatar' ng-repeat="doctor in currentUser.current_doctors">
+                            <img class="circle responsive-img" ng-src="{{quote.pic}}" alt="{{quote.surname}} {{quote.name}} profile picture">
+                            <h5>{{quote.surname}} {{quote.name}}</h5>
+                            <p>Specialty:{{quote.surgery.name}}</p>
+						</li>
+					</ul>
+  					<hr class="divider hide-on-med-and-up">
+  				</div>
+  				<div class="col s12 m6 l8 white-text">
+
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  	<div class="modal-footer">
+  		<button class="btn red lighten-2 white-text waves-effect left modal-action modal-close modal-trigger" data-target="loginModal"><i class="material-icons left">arrow_left</i>Back</button>
+  		<button class="btn teal white-text waves-effect right modal-action modal-close" ng-click="signin()">Sign In</button>
+  	</div>
   </div>
 
  <!--initialization script-->

@@ -24,7 +24,7 @@
                             </div>
                             <div class="col s8">
                                 <h5>{{quote.surname}} {{quote.name}}</h5>
-                                <p>Specialty:{{quote.specialty}}</br>Price:{{quote.price}}€</p>
+                                <p>Specialty:{{quote.surgery.name}}</br>Price:{{quote.price}} {{quote.currency}}</p>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                             </div>
                             <div class="col s9">
                                     <h3>{{currentDescription.surname}} {{currentDescription.name}}</h3>
-                                    <p>{{currentDescription.specialty}}</br>Quote: {{currentDescription.price}}</p>
+                                    <p>{{currentDescription.surgery.name}}</br>Quote: {{currentDescription.price}}</p>
                             </div>
                             <div class="col s1">
                                 <a ng-click="closeDescription()"><i class="material-icons">close</i></a>
@@ -97,7 +97,7 @@
         <div class="row">
             <div class="col s10 offset-s1">
                 <span class="teal-text text-lighten-3 weight-7">Requested information for your operation:</span>
-                <p class="grey-text">Physician specialty: <b>{{currentDescription.specialty}}</b><br>
+                <p class="grey-text">Physician specialty: <b>{{currentDescription.surgery.name}}</b><br>
                 Operation performed by: <b>{{currentDescription.surname}} {{currentDescription.name}}</b></p>
             </div>
         </div>
@@ -226,7 +226,7 @@
         </div>
         <div class="row">
             <div class="col s10 offset-s1">
-                <h3 class="teal-text text-lighten-3 weight-7"><i class="material-icons medium left">location_city</i>Marseille</h3>
+                <h3 class="teal-text text-lighten-3 weight-7"><i class="material-icons medium left">location_city</i>{{currentDescription.surgery.clinic.address.city}}</h3>
                 <ul class="collapsible teal-text text-lighten-3" data-collapsible="expendable">
                     <li>
                         <div class="collapsible-header"><b>Hotel</b></div>
@@ -413,7 +413,7 @@
 
 <script>
 	$(document).ready(function(){
-		$('.modal-trigger').leanModal();
+		$('.modal').modal();
 		$('.tooltipped').tooltip({delay: 50});
 		$('ul.tabs').tabs();
 		$('.scrollspy').scrollSpy();

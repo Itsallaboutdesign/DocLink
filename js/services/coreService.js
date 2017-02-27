@@ -1,135 +1,144 @@
 var serv = angular.module('Services',[]);
 
-var serverPort = 8080;
-var serverUrl = 'http://localhost:'+serverPort;
-
+var serverPort = 8443;
+var serverUrl = 'http://82.223.10.127:'+serverPort;
+// var serverUrl = 'http://localhost:'+serverPort;
 serv.factory('core',['$http',function($http){
     return{
-        //Temporary function, for test purposes only
-        //Final function should emit an http request to node server to fetch those datas
-        getClinics : function(){
-            return [
-                {
-                    name:'Dr Michel Assor, Institut du Genou Arthrosport',
-                    type:'Orthopedics surgery',
-                    location:'11 Boulevard de la Pugette',
-                    phone:'+33 4 91 23 12 31',
-                    _id:0
-                },
-                {
-                    name:'Dr Michel Assor, Institut du Genou Arthrosport',
-                    type:'Orthopedics surgery',
-                    location:'11 Boulevard de la Pugette',
-                    phone:'+33 4 91 23 12 31',
-                    _id:1
-                },
-                {
-                    name:'Dr Michel Assor, Institut du Genou Arthrosport',
-                    type:'Orthopedics surgery',
-                    location:'11 Boulevard de la Pugette',
-                    phone:'+33 4 91 23 12 31',
-                    _id:2
-                },
-                {
-                    name:'Dr Michel Assor, Institut du Genou Arthrosport',
-                    type:'Orthopedics surgery',
-                    location:'11 Boulevard de la Pugette',
-                    phone:'+33 4 91 23 12 31',
-                    _id:3
-                },
-                {
-                    name:'Dr Michel Assor, Institut du Genou Arthrosport',
-                    type:'Orthopedics surgery',
-                    location:'11 Boulevard de la Pugette',
-                    phone:'+33 4 91 23 12 31',
-                    _id:4
-                },
-                {
-                    name:'Dr Michel Assor, Institut du Genou Arthrosport',
-                    type:'Orthopedics surgery',
-                    location:'11 Boulevard de la Pugette',
-                    phone:'+33 4 91 23 12 31',
-                    _id:5
-                }
+        ping : function(){
+            return $http.get(serverUrl+'/ping');
+        }
+    }
+}]);
 
-            ]
+serv.factory('quotes',['$http',function($http){
+    return{
+        getAllQuotes : function(){
+            console.log('Getting all quotes');
+            return $http.get(serverUrl+'/quotes/all');
+        },
+        getOneQuote : function(quote){
+            return $http.post(serverUrl+'/quotes/one',{_id : quote._id});
+        },
+        updateQuote : function(quote){
+            return $http.post(serverUrl+'/quotes/update',quote);
+        },
+        addQuote : function(quote){
+            console.log('Adding service side...');
+            console.log(quote);
+            return $http.post(serverUrl+'/quotes/add',quote);
+        },
+        deleteQuote : function(quote){
+            return $http.post(serverUrl+'/quotes/delete',{_id : quote._id});
+        },
+        deleteAllQuotes : function(){
+            return $http.post(serverUrl+'/quotes/delete/all');
+        }
+    }
+}]);
+
+serv.factory('threads',['$http',function($http){
+    return{
+        getAllThreads : function(){
+            return $http.get(serverUrl+'/threads/all');
+        },
+        getOneThread : function(thread){
+            return $http.post(serverUrl+'/threads/one',{_id : thread._id});
+        },
+        updateThread : function(thread){
+            return $http.post(serverUrl+'/threads/update',thread);
+        },
+        addThread : function(thread){
+            return $http.post(serverUrl+'/threads/add',thread);
+        },
+        deleteThread : function(thread){
+            return $http.post(serverUrl+'/threads/delete',{_id : thread._id});
+        }
+    }
+}]);
+
+serv.factory('posts',['$http',function($http){
+    return{
+        getAllPosts : function(){
+            return $http.get(serverUrl+'/posts/all');
+        },
+        getOnePost : function(post){
+            return $http.post(serverUrl+'/posts/one',{_id : post._id});
+        },
+        addPost : function(post){
+            return $http.post(serverUrl+'/posts/add',post);
+        },
+        deletePost : function(post){
+            return $http.post(serverUrl+'/posts/delete',{_id : post._id});
+        }
+    }
+}]);
+
+serv.factory('data',['$http',function($http){
+    return{
+        //Clinics
+        getAllClinics : function(){
+            return $http.get(serverUrl+'/clinics/all');
+        },
+        getOneClinic : function(clinic){
+            return $http.post(serverUrl+'/clinics/one',{_id : clinic._id});
+        },
+        updateClinic : function(clinic){
+            return $http.post(serverUrl+'/clinics/update',clinic);
+        },
+        addClinic : function(clinic){
+            return $http.post(serverUrl+'/clinics/add',clinic);
+        },
+        deleteClinic : function(clinic){
+            return $http.post(serverUrl+'/clinics/delete',{_id : clinic._id});
+        },
+        deleteAllClinics : function(){
+            return $http.post(serverUrl+'/clinics/delete/all');
         },
 
-        getQuotes :function(){
-            return[
-                {
-                    name:'Trouillier',
-                    surname:'Maxime',
-                    price:5000,
-                    specialty:'Heart surgeon',
-                    motivation:'Best doctor around here',
-                    pic:'img/profile_pictures/trouillet.png',
-                    accepted : false,
-                    period:{
-                        date: 0,
-                        time : 0
-                    },
-                    interview:{
-                        booked : false,
-                        date : 0,
-                        time: 0
-                    }
-                },
-                {
-                    name:'Pierre',
-                    surname:'Jean',
-                    price:3000,
-                    specialty:'Plastic surgeon',
-                    motivation:'Best doctor around here',
-                    pic:'img/profile_pictures/trouillet.png',
-                    accepted : false,
-                    period:{
-                        date: 0,
-                        time : 0
-                    },
-                    interview:{
-                        booked : false,
-                        date : 0,
-                        time: 0
-                    }
-                },
-                {
-                    name:'Richard',
-                    surname:'Jack',
-                    price:7000,
-                    specialty:'Heart surgeon',
-                    motivation:'Best doctor around here',
-                    pic:'img/profile_pictures/trouillet.png',
-                    accepted : false,
-                    period:{
-                        date: 0,
-                        time : 0
-                    },
-                    interview:{
-                        booked : false,
-                        date : 0,
-                        time: 0
-                    }
-                },
-                {
-                    name:'Anderson',
-                    surname:'Eric',
-                    price:6000,
-                    specialty:'Neurosurgery',
-                    motivation:'Best doctor around here',
-                    pic:'img/profile_pictures/trouillet.png',
-                    accepted : false,
-                    period:{
-                        date: 0,
-                        time : 0
-                    },
-                    interview:{
-                        booked : false,
-                        date : 0,
-                        time: 0
-                    }
-                },
-            ]
+        //Countries
+        getAllCountries : function(){
+            return $http.get(serverUrl+'/countries/all');
+        },
+        getOneCountry : function(country){
+            return $http.post(serverUrl+'/countries/one',{_id : country._id});
+        },
+        updateCountry : function(country){
+            return $http.post(serverUrl+'/countries/update',country);
+        },
+        addCountry : function(country){
+            return $http.post(serverUrl+'/countries/add',country);
+        },
+        deleteCountry : function(country){
+            return $http.post(serverUrl+'/countries/delete',{_id : country._id});
+        },
+        deleteAllCountries : function(){
+            return $http.post(serverUrl+'/countries/delete/all');
+        },
+
+        //Surgeries
+        getAllSurgeries : function(){
+            return $http.get(serverUrl+'/surgeries/all');
+        },
+        getOneSurgery : function(surgery){
+            return $http.post(serverUrl+'/surgeries/one',{_id : surgery._id});
+        },
+        updateSurgery : function(surgery){
+            return $http.post(serverUrl+'/surgeries/update',surgery);
+        },
+        addSurgery : function(surgery){
+            return $http.post(serverUrl+'/surgeries/add',surgery);
+        },
+        deleteSurgery : function(surgery){
+            return $http.post(serverUrl+'/surgeries/delete',{_id : surgery._id});
+        },
+        deleteAllSurgeries : function(){
+            return $http.post(serverUrl+'/surgeries/delete/all');
+        },
+
+        //User management
+        selectedQuotes : function(id, quotes){
+            return $http.post(serverUrl+'/user/quotes',{_id : id, selected_quotes : quotes});
         }
     }
 }]);

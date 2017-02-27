@@ -1,0 +1,277 @@
+<!--Forum Template-->
+<div class="row parallax-container height-3 teal-screen valign-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m8 l6">
+                <h2 class="white-text weight-7 valign">"Be informed of everything <br>with our forum."</h2>
+            </div>
+        </div>
+    </div>
+    <div class="parallax">
+        <img src="img/healthcom.jpg" alt="Welcome to With We Care">
+    </div>
+</div>
+<div class="container" ng-hide="state.displayThread || state.displayPost">
+    <div class="row">
+        <form class="col s12 m10 offset-m1 l8 offset-l2">
+            <span class="label">Search for a keyword or a discussion here</span>
+            <input type="text" name="forumSearch" id="forumSearch" ng-model="forumSearch">
+        </form>
+
+    </div>
+    <div class="row">
+        <h3 class="teal-text text-lighten-3 weight-7" ng-if="forumSearch">Search results:</h3>
+        <div ng-class="{'col s12 m10 offset-m1 l8 offset-l2': !forumSearch,'col s6': forumSearch}">
+            <h5 class="teal-text text-lighten-2 center">Articles</h5>
+            <div class="row threadStaff teal lighten-2 clickable" ng-repeat="thread in state.threads | filter : forumSearch as results" ng-if="thread.staff" ng-style="{'background-image': 'url('+thread.img+')'}">
+                <div ng-class="{'row bordered-dark white-text':true,'white-text weight-8 text-shadow-1': thread.img }">
+                    <div class="col s2">
+                        <button class="btn red lighten-2 waves-effect" ng-click="deleteThread(thread)" ng-if="thread.author_email === currentUser.email"><i class="material-icons">delete</i></button><br>
+                    </div>
+                    <div class="col s8" ng-click="displayThread(thread)">
+                        <h5 ng-class="{'weight-5':!thread.img,'weight-8':thread.img}">{{thread.title}}</h5>
+                        <p>By: {{thread.author_name}} {{thread.author_surname}}<br>
+                        Theme: {{thread.topic}}</p>
+                    </div>
+                    <div class="col s2 hide-on-small-only">
+                        <p><b>Last edit</b><br>{{dateHourDisplay(thread.last_modification)}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-if="!results.length && threads.length">
+                <span class="red-text text-lighten-2">No topic matches your search</span>
+            </div>
+        </div>
+        <div ng-class="{'col s12 m10 offset-m1 l8 offset-l2': !forumSearch, 'col s6': forumSearch}">
+            <h5 class="teal-text text-lighten-2 center">Discussions</h5>
+            <hr class="divider" ng-if="!forumSearch">
+            <div class="row threadDisplay teal-text text-lighten-3 clickable" ng-repeat="thread in state.threads | filter : forumSearch as results" ng-if="!thread.staff">
+                <div class="row bordered-dark">
+                    <div class="col s2">
+                        <button class="btn red lighten-2 waves-effect" ng-click="deleteThread(thread)" ng-if="thread.author_email === currentUser.email"><i class="material-icons">delete</i></button><br>
+                    </div>
+                    <div class="col s8" ng-click="displayThread(thread)">
+                        <h5 class="weight-5">{{thread.title}}</h5>
+                        <p>By: {{thread.author_name}} {{thread.author_surname}}<br>
+                        Theme: {{thread.topic}}</p>
+                    </div>
+                    <div class="col s2 hide-on-small-only">
+                        <p><b>Last edit</b><br>{{dateHourDisplay(thread.last_modification)}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-if="!results.length && threads.length">
+                <span class="red-text text-lighten-2">No topic matches your search</span>
+            </div>
+        </div>
+    </div>
+    <div class="row center">
+        <h3 class="red-text text-lighten-3 weight-7">Share & Discover</h3>
+        <p class="teal-text text-lighten-3">Share with others your own experiences and doubts <br>& read everything about others</p>
+        <button class="btn teal col s8 offset-s2 white-text waves-effect" ng-show="!state.addThreadMode" ng-click="addThread()">Start a new discussion</button>
+    </div>
+    <div class="row center" ng-show="state.addThreadMode">
+        <h5 class="teal-text text-lighten-3">Create a new discussion</h5>
+        <form class="col s12 m10 offset-m1 l8 offset-l2">
+            <div class="input-field col s12">
+                <input type="text" name="title" ng-model="newThread.title">
+                <label for="title">Title</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" name="topic" ng-model="newThread.topic">
+                <label for="topic">Topic</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="text" name="topic" ng-model="newThread.img">
+                <label for="topic">Illustration (URL)</label>
+            </div>
+            <hr class="divider">
+            <h5 class="teal-text text-lighten-3">Add a post to your discussion</h5>
+            <div class="input-field col s12">
+                <textarea class="materialize-textarea" ng-model="newPost.content"></textarea>
+                <label for="title">First post content</label>
+            </div><br>
+            <div class="row" ng-if="currentUser.staff || currentUser.admin">
+                <span class="label">Submit as:</span><br>
+                <div class="input-field col s12">
+                    <div class="switch">
+                        <label>
+                         Regular user
+                          <input type="checkbox" ng-model="newThread.staff">
+                          <span class="lever"></span>
+                          Staff
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row"><p></p></div>
+            <div class="row"><p></p></div>
+            <div class="row"><p></p></div>
+            <div class="input-field col s12">
+                <button class="btn teal white-text waves-effect col s4 offset-s1" ng-click="exitThread()">Cancel</button>
+                <button class="btn teal white-text waves-effect col s4 offset-s2" ng-click="addThread()">Create discussion</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container teal-text text-lighten-3" ng-show="state.displayThread">
+    <div class="row">
+        <div class="col s12 m10 offset-m1 l8 offset-l2">
+            <div class="row">
+                <button class="btn teal white-text waves-effect col s4" ng-click="exitThread()"><i class="material-icons left">arrow_left</i>Back</button>
+            </div>
+            <div ng-class="{'row teal lighten-2 white-text threadTitle valign-wrapper': true,'weight-8 text-shadow-1': state.currentThread.img}" ng-style="{'background-image': 'url('+state.currentThread.img+')'}">
+                <div class="col s4 valign">
+                    AUTHOR
+                </div>
+                <div class="col s8 valign">
+                    DISCUSSION: {{state.currentThread.title}}<br>
+                    Topic: <i>{{state.currentThread.topic}}</i>
+                </div>
+            </div>
+            <div class="row teal-text text-lighten-3 valign-wrapper">
+                <div class="col s4 center valign">
+                    <b>{{state.currentThread.author_name}} {{state.currentThread.author_surname}}</b><br>
+                </div>
+                <div class="col s8 threadBody">
+                    <p>{{state.currentThread.firstPost.content}}</p>
+                </div>
+            </div>
+            <hr class="divider">
+            <div class="row center">
+                <h5 class="teal lighten-3 white-text">Posts</h5>
+                <div class="row teal-text text-lighten-3 valign-wrapper" ng-repeat="post in state.posts | filter : postFilter()">
+                    <div class="col s4 valign">
+                        <b>{{post.author_name}} {{post.author_surname}}</b><br>
+                        {{dateHourDisplay(post.date)}}
+                    </div>
+                    <div class="col s8 threadBody">
+                        <p>{{post.content}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="btn teal white-text waves-effect" ng-show="!state.addPostMode" ng-click="addPost()">Add a post</button>
+                </div>
+            </div>
+            <div class="row center" ng-show="state.addPostMode">
+                <h5 class="teal-text text-lighten-3">Reply to this discussion</h5>
+                <form class="col s12">
+                    <div class="input-field col s12">
+                        <textarea class="materialize-textarea" ng-model="newPost.content"></textarea>
+                        <label for="title">Your answer</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <button class="btn teal white-text waves-effect col s4 offset-s1" ng-click="state.addPostMode = false;">Cancel</button>
+                        <button class="btn teal white-text waves-effect col s4 offset-s2" ng-click="addPost()">Reply</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-include src="'templates/snippets/footer.html'"></ng-include>
+
+<!--Modals-->
+<div class="modal modal-fixed-footer seamlessModal" id="loginModal" ng-controller="AuthCtrl">
+	<div class="modal-content valign-wrapper">
+
+			<div class="container">
+				<div class="row">
+					<div class="col s12 m6 l4">
+						<span class="minor valign">
+							<i class="material-icons medium left">account_circle</i>
+							Login
+						</span>
+						<hr class="divider hide-on-med-and-up">
+					</div>
+					<div class="col s12 m6 l8 white-text">
+						<form class="valign">
+							<div class="input-field">
+								<i class="material-icons prefix grey-text">mail</i>
+								<input class="validate" id="email" type="email" ng-model="user.email">
+								<label>Email</label>
+							</div>
+							<div class="input-field">
+								<i class="material-icons prefix grey-text">lock</i>
+								<input class="validate" id="password" type="password" ng-model="user.password" >
+								<label>Password</label>
+							</div>
+						</form>
+						<button class="btn-flat waves-effect waves-light teal-text modal-trigger modal-action modal-close" data-target="signinModal">Don't have an account?</button>
+					</div>
+				</div>
+			</div>
+
+	</div>
+	<div class="modal-footer">
+		<button class="btn teal-lighten-2 white-text waves-effect waves-light right modal-action modal-close" ng-click="login();state.addThreadMode = true;">Login</button>
+	</div>
+</div>
+
+<div class="modal modal-fixed-footer seamlessModal" id="signinModal" ng-controller="AuthCtrl">
+	<div class="modal-content valign-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col s12 m6 l4 valign">
+					<span class="minor">
+						<i class="material-icons medium left">assignment_turned_in</i>
+						Sign In
+					</span>
+					<p class="teal-text text-lighten-2">
+						Quickly signin to our services. It won't take you more than a minute.
+					</p>
+					<hr class="divider hide-on-med-and-up">
+				</div>
+				<div class="col s12 m6 l8 white-text">
+					<form class="valign">
+						<div class="input-field col s12">
+							<i class="material-icons prefix grey-text">account_circle</i>
+							<input class="validate" type="text" id="name" ng-model="newUser.name" required>
+							<label>Name</label>
+						</div>
+						<div class="input-field col s12">
+							<i class="material-icons prefix grey-text">account_circle</i>
+							<input class="validate" type="text" id="surname" ng-model="newUser.surname" required>
+							<label>Surname</label>
+						</div>
+						<div class="input-field col s12">
+							<i class="material-icons prefix grey-text">mail</i>
+							<input class="validate" type="email" id="email" ng-model="newUser.email" required>
+							<label>E-mail</label>
+						</div>
+						<span class="label col s6">Birthdate</span>
+						<span class="label col s6">Gender</span>
+						<div class="input-field col s6" ng-click="convertDate()">
+							<i class="material-icons prefix grey-text">date_range</i>
+							<input class="validate" type="text" id="birth" ng-model="newUser.birthdate" placeholder="mm/dd/yyyy" required>
+						</div>
+						<div class="input-field col s6">
+							<div class="switch">
+								<label>
+								 Female
+								  <input type="checkbox" ng-model="newUser.sex">
+								  <span class="lever"></span>
+								  Male
+								</label>
+							</div>
+						</div>
+						<div class="input-field col s12">
+							<i class="material-icons prefix grey-text">lock</i>
+							<input class="validate" type="password" id="password" ng-model="newUser.password" required>
+							<label>Password</label>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn red lighten-2 white-text waves-effect left modal-action modal-close modal-trigger" data-target="loginModal"><i class="material-icons left">arrow_left</i>Login</button>
+		<button class="btn teal white-text waves-effect right modal-action modal-close" ng-click="signin()">Sign In</button>
+	</div>
+</div>
+
+<script type="text/javascript" src="js/init.js"></script>
